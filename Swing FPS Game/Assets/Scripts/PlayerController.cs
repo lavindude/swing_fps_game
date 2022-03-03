@@ -6,10 +6,13 @@ public class PlayerController : MonoBehaviour
 {
     float playerHeight = 2f;
 
+    [SerializeField] Grapple grapple;
+
     [Header("Movement")]
     public float moveSpeed;
     public float movementMultiplier = 10f;
     [SerializeField] float airMultiplier = 0.4f;
+    [SerializeField] float grappleMultiplier = 0.4f;
     [SerializeField] Transform orientation;
 
     [Header("Sprinting")]
@@ -43,6 +46,8 @@ public class PlayerController : MonoBehaviour
     Rigidbody rb;
 
     RaycastHit slopeHit;
+
+    public bool isSprinting = false;
 
     private bool OnSlope()
     {
@@ -89,6 +94,10 @@ public class PlayerController : MonoBehaviour
         {
             rb.drag = groundDrag;
         }
+        else if (grapple.isGrappling)
+        {
+            rb.drag = 0;
+        }
         else
         {
             rb.drag = airDrag;
@@ -100,10 +109,12 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKey(sprintKey) && isGrounded)
         {
             moveSpeed = Mathf.Lerp(moveSpeed, sprintSpeed, acceleration * Time.deltaTime);
+            isSprinting = true;
         }
         else
         {
             moveSpeed = Mathf.Lerp(moveSpeed, walkSpeed, acceleration * Time.deltaTime);
+            isSprinting = false;
         }
     }
 
@@ -129,6 +140,10 @@ public class PlayerController : MonoBehaviour
         else if (isGrounded && OnSlope())
         {
             rb.AddForce(slopeMoveDirection.normalized * moveSpeed * movementMultiplier, ForceMode.Acceleration);
+        }
+        else if (grapple.isGrappling)
+        {
+            rb.AddForce(slopeMoveDirection.normalized * moveSpeed * grappleMultiplier, ForceMode.Acceleration);
         }
         else if (!isGrounded)
         {

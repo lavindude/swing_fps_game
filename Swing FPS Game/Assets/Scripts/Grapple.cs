@@ -5,6 +5,17 @@ using UnityEngine;
 public class Grapple : MonoBehaviour
 {
     [SerializeField] Camera cam;
+    [SerializeField] Transform grappleBarrel;
+    [SerializeField] LineRenderer lr;
+
+    public bool isGrappling;
+
+    [Header("Grapple Setting")]
+    SpringJoint joint;
+    Vector3 grapplePoint;
+    float maxDistance;
+    public float spring;
+    public float damper;
 
     // Start is called before the first frame update
     void Start()
@@ -18,16 +29,25 @@ public class Grapple : MonoBehaviour
         DetectGrapple();
     }
 
+    void LateUpdate()
+    {
+        updateLr();
+    }
+
     void DetectGrapple()
     {
-        if (Input.GetButton("Fire1"))
+        RaycastHit hit;
+
+        if (Input.GetButtonDown("Fire1"))
         {
-            if (Physics.Raycast(cam.transform.position, cam.transform.forward))
+            if (Physics.Raycast(cam.transform.position, cam.transform.forward, out hit))
             {
+                grapplePoint = hit.point;
+                maxDistance = Vector3.Distance(transform.position, hit.point);
                 StartGrapple();
             }
         }
-        else
+        else if (Input.GetButtonUp("Fire1") && isGrappling)
         {
             StopGrapple();
         }
@@ -35,11 +55,33 @@ public class Grapple : MonoBehaviour
 
     void StartGrapple()
     {
-
+        isGrappling = true;
+        joint = gameObject.AddComponent<SpringJoint>();
+        joint.autoConfigureConnectedAnchor = false;
+        joint.connectedAnchor = grapplePoint;
+        joint.maxDistance = maxDistance;
+        joint.spring = spring;
+        joint.damper = damper;
     }
 
     void StopGrapple()
     {
+        isGrappling = false;
+        Destroy(joint);
+        joint = null;
+    }
 
+    void updateLr()
+    {
+        if (isGrappling)
+        {
+            lr.positionCount = 2;
+            lr.SetPosition(0, grapplePoint);
+            lr.SetPosition(1, grappleBarrel.position);
+        }
+        else
+        {
+            lr.positionCount = 0;
+        }
     }
 }

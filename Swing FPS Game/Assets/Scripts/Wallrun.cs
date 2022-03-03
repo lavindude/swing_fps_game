@@ -14,9 +14,6 @@ public class Wallrun : MonoBehaviour
 
     [Header("Camera")]
     [SerializeField] private Camera cam;
-    [SerializeField] private float fov;
-    [SerializeField] private float wallRunfov;
-    [SerializeField] private float wallRunfovTime;
     [SerializeField] private float camTilt;
     [SerializeField] private float camTiltTime;
 
@@ -29,6 +26,8 @@ public class Wallrun : MonoBehaviour
 
     RaycastHit leftWallHit;
     RaycastHit rightWallHit;
+
+    public bool isWallRunning = false;
 
     void Start()
     {
@@ -78,8 +77,6 @@ public class Wallrun : MonoBehaviour
         rb.useGravity = false;
         rb.AddForce(Vector3.down * wallRunGravity, ForceMode.Force);
 
-        cam.fieldOfView = Mathf.Lerp(cam.fieldOfView, wallRunfov, wallRunfovTime * Time.deltaTime);
-
         if (wallLeft)
         {
             tilt = Mathf.Lerp(tilt, -camTilt, camTiltTime * Time.deltaTime);
@@ -104,12 +101,14 @@ public class Wallrun : MonoBehaviour
                 rb.AddForce(wallRunJumpDirection * wallRunJumpForce * 100, ForceMode.Force);
             }
         }
+
+        isWallRunning = true;
     }
 
     void StopWallRun()
     {
         rb.useGravity = true;
-        cam.fieldOfView = Mathf.Lerp(cam.fieldOfView, fov, wallRunfovTime * Time.deltaTime);
         tilt = Mathf.Lerp(tilt, 0, camTiltTime * Time.deltaTime);
+        isWallRunning = false;
     }
 }
