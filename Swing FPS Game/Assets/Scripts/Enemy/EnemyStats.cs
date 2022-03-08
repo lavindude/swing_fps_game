@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "Enemy Stats", menuName = "Enemy/Stats")]
-public class EnemyStats : MonoBehaviour
+public class EnemyStats : ScriptableObject
 {
     public string enemyName;
     public int maxHealth;

@@ -23,6 +23,7 @@ public class EnemyHealth : MonoBehaviour, IDamageable
 
     public void DealDamage(int damage)
     {
-        currentHealth = enemyStats.maxHealth;
+        currentHealth -= damage;
+        CheckIfDead();
     }
 }

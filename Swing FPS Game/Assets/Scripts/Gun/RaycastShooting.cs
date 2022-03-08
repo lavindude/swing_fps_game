@@ -13,19 +13,6 @@ public class RaycastShooting : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        CheckForShooting();
-    }
-
-    private void CheckForShooting()
-    {
-        if (Input.GetMouseButtonDown(0))
-        {
-            RaycastHit whatIHit;
-            if (Physics.Raycast(transform.position, transform.forward, out whatIHit, Mathf.Infinity))
-            {
-                Debug.Log(whatIHit.collider.name);
-            }
-        }
 
     }
 }
