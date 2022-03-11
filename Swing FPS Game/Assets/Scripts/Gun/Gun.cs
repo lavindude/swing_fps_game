@@ -12,6 +12,7 @@ public class Gun : ScriptableObject
     public int minDamage;
     public int maxDamage;
     public float maximumRange;
+    [SerializeField] private ParticleSystem ImpactParticleSystem;
 
     public virtual void OnLeftMouseDown(Transform cameraPos) { }
     public virtual void OnLeftMouseHold(Transform cameraPos) { }
@@ -28,6 +29,8 @@ public class Gun : ScriptableObject
                 float normalisedDistance = whatIHit.distance / maximumRange;
                 damageable.DealDamage(Mathf.RoundToInt(Mathf.Lerp(maxDamage, minDamage, normalisedDistance)));
             }
+
+            Instantiate(ImpactParticleSystem, whatIHit.point, Quaternion.LookRotation(whatIHit.normal));
         }
     }
 
