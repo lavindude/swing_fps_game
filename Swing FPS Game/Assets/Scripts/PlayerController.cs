@@ -71,6 +71,8 @@ public class PlayerController : MonoBehaviour
     {
         isGrounded = Physics.CheckSphere(transform.position - new Vector3(0, 1, 0), groundDistance, groundMask);
 
+        StartCoroutine(MultiplayerTest());
+
         MyInput();
         ControlDrag();
         ControlSpeed();
@@ -81,6 +83,11 @@ public class PlayerController : MonoBehaviour
         }
 
         slopeMoveDirection = Vector3.ProjectOnPlane(moveDirection, slopeHit.normal);
+
+        if (transform.position.x != 0 || transform.position.y != 0 || transform.position.z != 0)
+        {
+            APIHelper.SetMoved();
+        }
     }
 
     void ControlDrag()
@@ -143,5 +150,16 @@ public class PlayerController : MonoBehaviour
             rb.velocity = new Vector3(rb.velocity.x, 0, rb.velocity.z);
             rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
         }
+    }
+
+    IEnumerator MultiplayerTest()
+    {
+        Moved update = APIHelper.GetMovedData();
+        if (update.movedFromStartingLoc)
+        {
+            Debug.Log(update.movedFromStartingLoc);
+            transform.position.Set(10, 0, 0);
+        }
+        yield return null;
     }
 }

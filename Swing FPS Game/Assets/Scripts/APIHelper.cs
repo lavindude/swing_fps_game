@@ -4,12 +4,21 @@ using System.IO;
 
 public static class APIHelper
 {
-    public static SampleDataObject GetFact()
+    public static string baseURL = "http://localhost:4000"; // local testing
+    public static Moved GetMovedData()
     {
-        HttpWebRequest request = (HttpWebRequest) WebRequest.Create("https://catfact.ninja/fact");
-        HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+        string api_url = baseURL + "/checkMoved";
+        HttpWebRequest request = (HttpWebRequest) WebRequest.Create(api_url);
+        HttpWebResponse response = (HttpWebResponse) request.GetResponse();
         StreamReader reader = new StreamReader(response.GetResponseStream());
         string json = reader.ReadToEnd();
-        return JsonUtility.FromJson<SampleDataObject>(json);
+        return JsonUtility.FromJson<Moved>(json);
+    }
+
+    public static void SetMoved()
+    {
+        string api_url = baseURL + "/setMoved";
+        HttpWebRequest request = (HttpWebRequest) WebRequest.Create(api_url);
+        request.GetResponse();
     }
 }

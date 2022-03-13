@@ -7,8 +7,8 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        SampleDataObject sample = APIHelper.GetFact();
-        Debug.Log(sample.fact);
+        Moved sample = APIHelper.GetMovedData();
+        Debug.Log(sample.movedFromStartingLoc);
     }
 
     // Update is called once per frame
