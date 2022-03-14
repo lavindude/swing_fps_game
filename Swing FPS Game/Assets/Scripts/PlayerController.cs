@@ -84,7 +84,7 @@ public class PlayerController : MonoBehaviour
 
         slopeMoveDirection = Vector3.ProjectOnPlane(moveDirection, slopeHit.normal);
 
-        if (transform.position.x != 0 || transform.position.y != 0 || transform.position.z != 0)
+        if (transform.position.x != 0)
         {
             APIHelper.SetMoved();
         }
@@ -158,7 +158,7 @@ public class PlayerController : MonoBehaviour
         if (update.movedFromStartingLoc)
         {
             Debug.Log(update.movedFromStartingLoc);
-            transform.position.Set(10, 0, 0);
+            transform.position = new Vector3(10, 0, 0);
         }
         yield return null;
     }

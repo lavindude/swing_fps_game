@@ -4,7 +4,8 @@ using System.IO;
 
 public static class APIHelper
 {
-    public static string baseURL = "http://localhost:4000"; // local testing
+    //public static string baseURL = "http://localhost:4000"; // local testing
+    public static string baseURL = "http://rest-swing-api.herokuapp.com"; // production environment
     public static Moved GetMovedData()
     {
         string api_url = baseURL + "/checkMoved";
