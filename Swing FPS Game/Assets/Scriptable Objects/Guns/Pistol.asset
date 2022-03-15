@@ -18,5 +18,5 @@ MonoBehaviour:
   minDamage: 5
   maxDamage: 50
   maximumRange: 50
-  ImpactParticleSystem: {fileID: 3503947707206469314, guid: 966519976ebd1e3428ae9a780403a1c7,
+  ImpactParticleSystem: {fileID: 3631556063007445644, guid: 966519976ebd1e3428ae9a780403a1c7,
     type: 3}

@@ -12,7 +12,7 @@ public class Gun : ScriptableObject
     public int minDamage;
     public int maxDamage;
     public float maximumRange;
-    [SerializeField] private ParticleSystem ImpactParticleSystem;
+    [SerializeField] private GameObject ImpactParticleSystem;
 
     public virtual void OnLeftMouseDown(Transform cameraPos) { }
     public virtual void OnLeftMouseHold(Transform cameraPos) { }

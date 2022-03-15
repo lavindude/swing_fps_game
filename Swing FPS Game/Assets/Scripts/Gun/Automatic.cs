@@ -13,7 +13,7 @@ public class Automatic : Gun
         {
             lastTimeFired = Time.time;
             Fire(cameraPos);
+            Debug.Log("Hit");        
         }
-        
     }
 }

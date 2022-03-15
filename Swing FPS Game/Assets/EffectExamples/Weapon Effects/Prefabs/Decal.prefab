@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 3634537473800869352}
   - component: {fileID: 3503947707206469314}
   - component: {fileID: 3504931506660737194}
+  - component: {fileID: 8158339830632803580}
   m_Layer: 0
   m_Name: Decal
   m_TagString: Untagged
@@ -47,7 +48,7 @@ ParticleSystem:
   ringBufferMode: 0
   ringBufferLoopRange: {x: 0, y: 1}
   emitterVelocityMode: 0
-  looping: 1
+  looping: 0
   prewarm: 0
   playOnAwake: 1
   useUnscaledTime: 0
@@ -4885,3 +4886,15 @@ ParticleSystemRenderer:
   m_Mesh2: {fileID: 0}
   m_Mesh3: {fileID: 0}
   m_MaskInteraction: 0
+--- !u!114 &8158339830632803580
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3631556063007445644}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b9299802e6f1d64f80970b1b56048a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
