@@ -22,4 +22,11 @@ public static class APIHelper
         HttpWebRequest request = (HttpWebRequest) WebRequest.Create(api_url);
         request.GetResponse();
     }
+
+    public static void SetNotMoved()
+    {
+        string api_url = baseURL + "/setNotMoved";
+        HttpWebRequest request = (HttpWebRequest) WebRequest.Create(api_url);
+        request.GetResponse();
+    }
 }

@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     float playerHeight = 2f;
+    private float curX;
 
     [Header("Movement")]
     public float moveSpeed;
@@ -65,6 +66,7 @@ public class PlayerController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
+        curX = transform.position.x;
     }
 
     private void Update()
@@ -84,7 +86,7 @@ public class PlayerController : MonoBehaviour
 
         slopeMoveDirection = Vector3.ProjectOnPlane(moveDirection, slopeHit.normal);
 
-        if (transform.position.x != 0)
+        if (transform.position.x != curX)
         {
             APIHelper.SetMoved();
         }
@@ -157,8 +159,11 @@ public class PlayerController : MonoBehaviour
         Moved update = APIHelper.GetMovedData();
         if (update.movedFromStartingLoc)
         {
-            Debug.Log(update.movedFromStartingLoc);
-            transform.position = new Vector3(10, 0, 0);
+            transform.position = new Vector3(Random.Range(-10, 10), 2, 
+                                            Random.Range(-10, 10));
+            //set not moved here
+            APIHelper.SetNotMoved();
+            curX = transform.position.x;
         }
         yield return null;
     }
