@@ -26,6 +26,7 @@ public class PlayerController : MonoBehaviour
     [Header("KeyBinds")]
     KeyCode jumpKey = KeyCode.Space;
     KeyCode sprintKey = KeyCode.LeftShift;
+    KeyCode crouchKey = KeyCode.LeftControl;
 
     [Header("Drag")]
     public float groundDrag = 6;
@@ -48,6 +49,7 @@ public class PlayerController : MonoBehaviour
     RaycastHit slopeHit;
 
     public bool isSprinting = false;
+    public bool isCrouching = false;
 
     private bool OnSlope()
     {
@@ -86,6 +88,8 @@ public class PlayerController : MonoBehaviour
         }
 
         slopeMoveDirection = Vector3.ProjectOnPlane(moveDirection, slopeHit.normal);
+
+        Crouch();
     }
 
     void ControlDrag()
@@ -106,7 +110,7 @@ public class PlayerController : MonoBehaviour
 
     void ControlSpeed()
     {
-        if (Input.GetKey(sprintKey) && isGrounded)
+        if (Input.GetKey(sprintKey) && isGrounded && !isCrouching)
         {
             moveSpeed = Mathf.Lerp(moveSpeed, sprintSpeed, acceleration * Time.deltaTime);
             isSprinting = true;
@@ -157,6 +161,18 @@ public class PlayerController : MonoBehaviour
         {
             rb.velocity = new Vector3(rb.velocity.x, 0, rb.velocity.z);
             rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
+        }
+    }
+
+    void Crouch()
+    {
+        if (Input.GetKey(crouchKey) && isGrounded)
+        {
+            isCrouching = true;
+        }
+        else
+        {
+            isCrouching = false;
         }
     }
 }

@@ -10,17 +10,20 @@ public class Grapple : MonoBehaviour
 
     public bool isGrappling;
 
+    Rigidbody rb;
+
     [Header("Grapple Setting")]
     SpringJoint joint;
     Vector3 grapplePoint;
     float maxDistance;
     public float spring;
     public float damper;
+    public float grapplePullForce;
 
     // Start is called before the first frame update
     void Start()
     {
-
+        rb = GetComponent<Rigidbody>();
     }
 
     // Update is called once per frame
@@ -38,7 +41,7 @@ public class Grapple : MonoBehaviour
     {
         RaycastHit hit;
 
-        if (Input.GetButtonDown("Fire1"))
+        if (Input.GetMouseButtonDown(0))
         {
             if (Physics.Raycast(cam.transform.position, cam.transform.forward, out hit))
             {
@@ -47,9 +50,19 @@ public class Grapple : MonoBehaviour
                 StartGrapple();
             }
         }
-        else if (Input.GetButtonUp("Fire1") && isGrappling)
+        else if (Input.GetMouseButtonUp(0) && isGrappling)
         {
             StopGrapple();
+        }
+        else if (Input.GetKey(KeyCode.Space) && isGrappling)
+        {
+            Vector3 direction = (grapplePoint - transform.position).normalized;
+            rb.AddForce(direction * grapplePullForce * 0.1f, ForceMode.VelocityChange);
+
+            //maxDistance = maxDistance * 0.1f;
+            maxDistance = Vector3.Distance(transform.position, grapplePoint);
+
+            joint.maxDistance = maxDistance;
         }
     }
 
@@ -60,6 +73,7 @@ public class Grapple : MonoBehaviour
         joint.autoConfigureConnectedAnchor = false;
         joint.connectedAnchor = grapplePoint;
         joint.maxDistance = maxDistance;
+        joint.minDistance = 0f;
         joint.spring = spring;
         joint.damper = damper;
     }
