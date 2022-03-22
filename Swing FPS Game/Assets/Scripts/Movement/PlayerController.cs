@@ -128,6 +128,12 @@ public class PlayerController : MonoBehaviour
         verticalMovement = Input.GetAxisRaw("Vertical");
 
         moveDirection = orientation.forward * verticalMovement + orientation.right * horizontalMovement;
+        
+        if (horizontalMovement != 0 || verticalMovement != 0) //check for movement, if movement send to API
+        {
+            //APIHelper.SyncLocation(1, 1, 1, 1, 1);
+            Debug.Log("Moved");
+        }
     }
 
     private void FixedUpdate()
