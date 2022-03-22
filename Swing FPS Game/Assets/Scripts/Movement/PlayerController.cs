@@ -51,6 +51,8 @@ public class PlayerController : MonoBehaviour
     public bool isSprinting = false;
     public bool isCrouching = false;
 
+    private Vector3 curPosition;
+
     private bool OnSlope()
     {
         if (Physics.Raycast(transform.position, Vector3.down, out slopeHit, playerHeight / 2 + 0.1f))
@@ -72,6 +74,7 @@ public class PlayerController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
+        curPosition = transform.position;
     }
 
     private void Update()
@@ -79,6 +82,7 @@ public class PlayerController : MonoBehaviour
         isGrounded = Physics.CheckSphere(transform.position - new Vector3(0, 1, 0), groundDistance, groundMask);
 
         MyInput();
+        curPosition = transform.position;
         ControlDrag();
         ControlSpeed();
 
@@ -129,10 +133,9 @@ public class PlayerController : MonoBehaviour
 
         moveDirection = orientation.forward * verticalMovement + orientation.right * horizontalMovement;
         
-        if (horizontalMovement != 0 || verticalMovement != 0) //check for movement, if movement send to API
+        if (transform.position != curPosition) //check for movement, if movement send to API
         {
-            //APIHelper.SyncLocation(1, 1, 1, 1, 1);
-            Debug.Log("Moved");
+            APIHelper.SyncLocation(1, 1, transform.position.x, transform.position.y, transform.position.z);
         }
     }
 
