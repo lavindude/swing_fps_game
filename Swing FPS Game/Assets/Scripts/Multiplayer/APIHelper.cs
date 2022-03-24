@@ -14,4 +14,14 @@ public static class APIHelper
         HttpWebRequest request = (HttpWebRequest)WebRequest.Create(api_url);
         request.GetResponse();
     }
+
+    public static LobbyPlayers GetLobbyPlayers(int lobbyId)
+    {
+        string api_url = baseURL + "/getLobbyPlayers?lobbyId=" + lobbyId;
+        HttpWebRequest request = (HttpWebRequest)WebRequest.Create(api_url);
+        HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+        StreamReader reader = new StreamReader(response.GetResponseStream());
+        string json = reader.ReadToEnd();
+        return JsonUtility.FromJson<LobbyPlayers>(json);
+    }
 }

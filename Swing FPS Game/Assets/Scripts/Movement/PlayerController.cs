@@ -51,7 +51,12 @@ public class PlayerController : MonoBehaviour
     public bool isSprinting = false;
     public bool isCrouching = false;
 
+    //local data for multiplayer
     private Vector3 curPosition;
+    private int playerId;
+    private int lobbyId;
+    public GameObject otherPlayerPrefab;
+    private GameObject[] otherPlayers;
 
     private bool OnSlope()
     {
@@ -74,7 +79,14 @@ public class PlayerController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
+
         curPosition = transform.position;
+        playerId = 1;
+        lobbyId = 1;
+
+        APIHelper.SyncLocation(playerId, lobbyId, transform.position.x, transform.position.y, transform.position.z);
+
+        LobbyPlayers lobbyPlayers = APIHelper.GetLobbyPlayers(lobbyId);
     }
 
     private void Update()
@@ -135,7 +147,7 @@ public class PlayerController : MonoBehaviour
         
         if (transform.position != curPosition) //check for movement, if movement send to API
         {
-            APIHelper.SyncLocation(1, 1, transform.position.x, transform.position.y, transform.position.z);
+            APIHelper.SyncLocation(playerId, lobbyId, transform.position.x, transform.position.y, transform.position.z);
         }
     }
 
