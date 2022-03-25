@@ -12,6 +12,7 @@ public class PlayerLook : MonoBehaviour
     [Header("FOV")]
     [SerializeField] private float fov;
     [SerializeField] private float sprintFov;
+    [SerializeField] private float slideFov;
     [SerializeField] private float wallRunfov;
     [SerializeField] private float fovTime;
 
@@ -65,6 +66,10 @@ public class PlayerLook : MonoBehaviour
         else if (wallrun.isWallRunning)
         {
             cam.fieldOfView = Mathf.Lerp(cam.fieldOfView, wallRunfov, fovTime * Time.deltaTime);
+        }
+        else if (playerController.isSliding)
+        {
+            cam.fieldOfView = Mathf.Lerp(cam.fieldOfView, slideFov, fovTime * Time.deltaTime);
         }
         else
         {
