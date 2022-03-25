@@ -15,13 +15,24 @@ public static class APIHelper
         request.GetResponse();
     }
 
-    public static LobbyPlayers GetLobbyPlayers(int lobbyId)
+    public static LobbyPlayers[] GetLobbyPlayers(int lobbyId)
     {
         string api_url = baseURL + "/getLobbyPlayers?lobbyId=" + lobbyId;
         HttpWebRequest request = (HttpWebRequest)WebRequest.Create(api_url);
         HttpWebResponse response = (HttpWebResponse)request.GetResponse();
         StreamReader reader = new StreamReader(response.GetResponseStream());
         string json = reader.ReadToEnd();
-        return JsonUtility.FromJson<LobbyPlayers>(json);
+
+        //split string into an array of JSONs (**there could be bugs here, watch out)
+        string[] words = json.Split('}');
+        LobbyPlayers[] lobbyArray = new LobbyPlayers[words.Length-1];
+        for (int i = 0; i < words.Length-1; i++)
+        {
+            string item = words[i].Substring(1) + '}';
+            LobbyPlayers jsonItem = JsonUtility.FromJson<LobbyPlayers>(item);
+            lobbyArray[i] = jsonItem;
+        }
+
+        return lobbyArray;
     }
 }

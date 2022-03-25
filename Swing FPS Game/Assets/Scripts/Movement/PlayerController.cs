@@ -86,7 +86,8 @@ public class PlayerController : MonoBehaviour
 
         APIHelper.SyncLocation(playerId, lobbyId, transform.position.x, transform.position.y, transform.position.z);
 
-        LobbyPlayers lobbyPlayers = APIHelper.GetLobbyPlayers(lobbyId);
+        LobbyPlayers[] lobbyPlayers = APIHelper.GetLobbyPlayers(lobbyId);
+        Debug.Log(lobbyPlayers.Length); // IN PROGRESS
     }
 
     private void Update()
