@@ -843,7 +843,7 @@ MonoBehaviour:
   jumpForce: 9
   sprintSlideForce: 30
   walkSlideForce: 10
-  slideLength: 0.75
+  slideLength: 0.5
   currentSlideForce: 0
   currentSlideTime: 0
   groundDrag: 8

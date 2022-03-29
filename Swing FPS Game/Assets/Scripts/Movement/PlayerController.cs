@@ -219,20 +219,14 @@ public class PlayerController : MonoBehaviour
 
     void SetSlideSettings()
     {
-        if ((moveDirection.x != 0 || moveDirection.y != 0 || moveDirection.z != 0) && Input.GetKeyDown(KeyCode.LeftControl) && !isSliding && isGrounded && !isCrouching)
+        if ((rb.velocity.magnitude > 0f) && Input.GetKeyDown(KeyCode.LeftControl) && !isSliding && isGrounded && !isCrouching)
         {
             if (isSprinting)
             {
                 currentSlideForce = sprintSlideForce;
                 currentSlideTime = slideLength;
+                isSliding = true;
             }
-            else
-            {
-                currentSlideForce = walkSlideForce;
-                currentSlideTime = slideLength;
-            }
-
-            isSliding = true;
         }
 
         if (!isGrounded || Input.GetKeyUp(KeyCode.LeftControl))
