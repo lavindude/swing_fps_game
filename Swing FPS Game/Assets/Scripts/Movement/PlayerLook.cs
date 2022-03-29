@@ -4,8 +4,12 @@ using UnityEngine;
 
 public class PlayerLook : MonoBehaviour
 {
-    [SerializeField] private float sensX;
-    [SerializeField] private float sensY;
+    private float sensX;
+    private float sensY;
+    [SerializeField] private float normalSensX;
+    [SerializeField] private float normalSensY;
+    [SerializeField] private float zoomSensX;
+    [SerializeField] private float zoomSensY;
     [SerializeField] PlayerController playerController;
     [SerializeField] Wallrun wallrun;
 
@@ -14,6 +18,7 @@ public class PlayerLook : MonoBehaviour
     [SerializeField] private float sprintFov;
     [SerializeField] private float wallRunfov;
     [SerializeField] private float fovTime;
+    [SerializeField] private float zoomFov;
 
     Camera cam;
     [SerializeField] Transform orientation;
@@ -58,17 +63,29 @@ public class PlayerLook : MonoBehaviour
 
     public void changeFov()
     {
-        if (playerController.isSprinting)
+        if (Input.GetMouseButton(1))
+        {
+            cam.fieldOfView = Mathf.Lerp(cam.fieldOfView, zoomFov, fovTime * Time.deltaTime);
+            sensX = zoomSensX;
+            sensY = zoomSensY;
+        }
+        else if (playerController.isSprinting)
         {
             cam.fieldOfView = Mathf.Lerp(cam.fieldOfView, sprintFov, fovTime * Time.deltaTime);
+            sensX = normalSensX;
+            sensY = normalSensY;
         }
         else if (wallrun.isWallRunning)
         {
             cam.fieldOfView = Mathf.Lerp(cam.fieldOfView, wallRunfov, fovTime * Time.deltaTime);
+            sensX = normalSensX;
+            sensY = normalSensY;
         }
         else
         {
             cam.fieldOfView = Mathf.Lerp(cam.fieldOfView, fov, fovTime * Time.deltaTime);
+            sensX = normalSensX;
+            sensY = normalSensY;
         }
     }
 }

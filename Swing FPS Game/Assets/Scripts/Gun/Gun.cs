@@ -26,8 +26,7 @@ public class Gun : ScriptableObject
             IDamageable damageable = whatIHit.collider.GetComponent<IDamageable>();
             if (damageable != null)
             {
-                float normalisedDistance = whatIHit.distance / maximumRange;
-                damageable.DealDamage(Mathf.RoundToInt(Mathf.Lerp(maxDamage, minDamage, normalisedDistance)));
+                damageable.DealDamage(Mathf.RoundToInt(maxDamage));
             }
 
             Instantiate(ImpactParticleSystem, whatIHit.point, Quaternion.LookRotation(whatIHit.normal));

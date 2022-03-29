@@ -13,10 +13,8 @@ MonoBehaviour:
   m_Name: Pistol
   m_EditorClassIdentifier: 
   gunName: 
-  gunPrefab: {fileID: 6501109862740084902, guid: 3665ddab5667f4a4fa5fb1769427e223,
-    type: 3}
+  gunPrefab: {fileID: 6501109862740084902, guid: 3665ddab5667f4a4fa5fb1769427e223, type: 3}
   minDamage: 5
-  maxDamage: 50
+  maxDamage: 150
   maximumRange: 50
-  ImpactParticleSystem: {fileID: 3631556063007445644, guid: 966519976ebd1e3428ae9a780403a1c7,
-    type: 3}
+  ImpactParticleSystem: {fileID: 3631556063007445644, guid: 966519976ebd1e3428ae9a780403a1c7, type: 3}
