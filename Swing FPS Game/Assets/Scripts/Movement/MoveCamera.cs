@@ -12,7 +12,7 @@ public class MoveCamera : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (playerController.isCrouching)
+        if (playerController.isCrouching || playerController.isSliding)
         {
             transform.position = new Vector3(cameraCrouchPosition.position.x, Mathf.Lerp(transform.position.y, cameraCrouchPosition.position.y, heightChangeSpeed * Time.deltaTime), cameraCrouchPosition.position.z);
         }

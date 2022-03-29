@@ -16,12 +16,21 @@ public class PlayerController : MonoBehaviour
     [SerializeField] Transform orientation;
 
     [Header("Sprinting")]
+    public float crouchSpeed = 4;
     public float walkSpeed = 6;
     public float sprintSpeed = 12;
     public float acceleration = 10f;
 
     [Header("Jumping")]
     public float jumpForce = 5;
+
+    [Header("Sliding")]
+    public float sprintSlideForce = 10;
+    public float walkSlideForce = 5;
+    public float slideLength = 0.75f;
+    public float currentSlideForce = 0f;
+    public float currentSlideTime = 0f;
+
 
     [Header("KeyBinds")]
     KeyCode jumpKey = KeyCode.Space;
@@ -45,11 +54,13 @@ public class PlayerController : MonoBehaviour
 
 
     Rigidbody rb;
+    [SerializeField] CapsuleCollider cc;
 
     RaycastHit slopeHit;
 
     public bool isSprinting = false;
     public bool isCrouching = false;
+    public bool isSliding = false;
 
     private bool OnSlope()
     {
@@ -89,7 +100,18 @@ public class PlayerController : MonoBehaviour
 
         slopeMoveDirection = Vector3.ProjectOnPlane(moveDirection, slopeHit.normal);
 
+        SetSlideSettings();
+        Slide();
         Crouch();
+
+        if (isCrouching || isSliding)
+        {
+            cc.height = 1.5f;
+        }
+        else
+        {
+            cc.height = 2f;
+        }
     }
 
     void ControlDrag()
@@ -115,6 +137,11 @@ public class PlayerController : MonoBehaviour
             moveSpeed = Mathf.Lerp(moveSpeed, sprintSpeed, acceleration * Time.deltaTime);
             isSprinting = true;
         }
+        else if (isCrouching)
+        {
+            moveSpeed = Mathf.Lerp(moveSpeed, crouchSpeed, acceleration * Time.deltaTime);
+            isSprinting = false;
+        }
         else
         {
             moveSpeed = Mathf.Lerp(moveSpeed, walkSpeed, acceleration * Time.deltaTime);
@@ -137,19 +164,19 @@ public class PlayerController : MonoBehaviour
 
     void MovePlayer()
     {
-        if (isGrounded && !OnSlope())
+        if (isGrounded && !OnSlope() && !isSliding)
         {
             rb.AddForce(moveDirection.normalized * moveSpeed * movementMultiplier, ForceMode.Acceleration);
         }
-        else if (isGrounded && OnSlope())
+        else if (isGrounded && OnSlope() && !isSliding)
         {
             rb.AddForce(slopeMoveDirection.normalized * moveSpeed * movementMultiplier, ForceMode.Acceleration);
         }
-        else if (grapple.isGrappling)
+        else if (grapple.isGrappling && !isSliding)
         {
             rb.AddForce(slopeMoveDirection.normalized * moveSpeed * grappleMultiplier, ForceMode.Acceleration);
         }
-        else if (!isGrounded)
+        else if (!isGrounded && !isSliding)
         {
             rb.AddForce(moveDirection.normalized * moveSpeed * airMultiplier, ForceMode.Acceleration);
         }
@@ -166,7 +193,7 @@ public class PlayerController : MonoBehaviour
 
     void Crouch()
     {
-        if (Input.GetKey(crouchKey) && isGrounded)
+        if (Input.GetKey(crouchKey) && isGrounded && !isSliding)
         {
             isCrouching = true;
         }
@@ -175,4 +202,37 @@ public class PlayerController : MonoBehaviour
             isCrouching = false;
         }
     }
+
+    void Slide()
+    {
+        if (isGrounded && isSliding)
+        {
+            rb.AddForce(orientation.forward * currentSlideForce, ForceMode.Acceleration);
+            currentSlideTime -= Time.deltaTime;
+        }
+
+        if (currentSlideTime < 0)
+        {
+            isSliding = false;
+        }
+    }
+
+    void SetSlideSettings()
+    {
+        if ((rb.velocity.magnitude > 0f) && Input.GetKeyDown(KeyCode.LeftControl) && !isSliding && isGrounded && !isCrouching)
+        {
+            if (isSprinting)
+            {
+                currentSlideForce = sprintSlideForce;
+                currentSlideTime = slideLength;
+                isSliding = true;
+            }
+        }
+
+        if (!isGrounded || Input.GetKeyUp(KeyCode.LeftControl))
+        {
+            isSliding = false;
+        }
+    }
 }
+             

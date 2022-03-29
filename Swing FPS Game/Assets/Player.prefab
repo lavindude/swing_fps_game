@@ -154,7 +154,7 @@ AudioListener:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 999251517}
-  m_Enabled: 1
+  m_Enabled: 0
 --- !u!1 &1397588078
 GameObject:
   m_ObjectHideFlags: 0
@@ -831,22 +831,30 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   grapple: {fileID: 6367314311482220848}
-  moveSpeed: 8.000001
+  moveSpeed: 8
   movementMultiplier: 10
   airMultiplier: 1.2
   grappleMultiplier: 0.6
   orientation: {fileID: 6367314311482220844}
+  crouchSpeed: 4
   walkSpeed: 8
   sprintSpeed: 15
   acceleration: 10
   jumpForce: 9
+  sprintSlideForce: 30
+  walkSlideForce: 10
+  slideLength: 0.5
+  currentSlideForce: 0
+  currentSlideTime: 0
   groundDrag: 8
   airDrag: 0.15
   groundMask:
     serializedVersion: 2
     m_Bits: 64
+  cc: {fileID: 6367314309808700710}
   isSprinting: 0
   isCrouching: 0
+  isSliding: 0
 --- !u!114 &6367314311482220845
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -865,6 +873,7 @@ MonoBehaviour:
   wallrun: {fileID: 6367314311482220850}
   fov: 90
   sprintFov: 95
+  slideFov: 95
   wallRunfov: 100
   fovTime: 20
   orientation: {fileID: 6367314311482220844}
