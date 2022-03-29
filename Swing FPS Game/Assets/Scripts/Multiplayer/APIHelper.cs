@@ -15,7 +15,7 @@ public static class APIHelper
         request.GetResponse();
     }
 
-    public static LobbyPlayers[] GetLobbyPlayers(int lobbyId)
+    public static LobbyPlayers[] GetLobbyPlayers(int lobbyId) // under construction **
     {
         string api_url = baseURL + "/getLobbyPlayers?lobbyId=" + lobbyId;
         HttpWebRequest request = (HttpWebRequest)WebRequest.Create(api_url);

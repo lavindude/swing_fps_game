@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Threading;
 
 public class PlayerController : MonoBehaviour
 {
@@ -56,7 +57,7 @@ public class PlayerController : MonoBehaviour
     private int playerId;
     private int lobbyId;
     public GameObject otherPlayerPrefab;
-    private GameObject[] otherPlayers;
+    private LobbyPlayers[] otherPlayers;
 
     private bool OnSlope()
     {
@@ -86,8 +87,9 @@ public class PlayerController : MonoBehaviour
 
         APIHelper.SyncLocation(playerId, lobbyId, transform.position.x, transform.position.y, transform.position.z);
 
-        LobbyPlayers[] lobbyPlayers = APIHelper.GetLobbyPlayers(lobbyId);
-        Debug.Log(lobbyPlayers.Length); // IN PROGRESS
+        StartCoroutine(PlayerMovement());
+        playerId = 1; // ** Manually set id of player here (until gamecode issue is fixed)
+        otherPlayers = new LobbyPlayers[2]; // ** This is a hard coded value, this will change once the server side works
     }
 
     private void Update()
@@ -145,11 +147,15 @@ public class PlayerController : MonoBehaviour
         verticalMovement = Input.GetAxisRaw("Vertical");
 
         moveDirection = orientation.forward * verticalMovement + orientation.right * horizontalMovement;
-        
+    }
+
+    IEnumerator PlayerMovement()
+    {
         if (transform.position != curPosition) //check for movement, if movement send to API
         {
             APIHelper.SyncLocation(playerId, lobbyId, transform.position.x, transform.position.y, transform.position.z);
         }
+        yield return null;
     }
 
     private void FixedUpdate()
