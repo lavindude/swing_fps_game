@@ -15,6 +15,16 @@ public static class APIHelper
         request.GetResponse();
     }
 
+    public static PlayerPosition GetPlayerPosition(int userId)
+    {
+        string api_url = baseURL + "/getPosition?userId=" + userId;
+        HttpWebRequest request = (HttpWebRequest)WebRequest.Create(api_url);
+        HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+        StreamReader reader = new StreamReader(response.GetResponseStream());
+        string json = reader.ReadToEnd();
+        return JsonUtility.FromJson<PlayerPosition>(json);
+    }
+
     public static LobbyPlayers[] GetLobbyPlayers(int lobbyId) // under construction **
     {
         string api_url = baseURL + "/getLobbyPlayers?lobbyId=" + lobbyId;

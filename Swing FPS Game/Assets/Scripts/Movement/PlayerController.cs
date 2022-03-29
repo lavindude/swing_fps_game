@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System.Threading;
 
 public class PlayerController : MonoBehaviour
 {
@@ -53,11 +52,8 @@ public class PlayerController : MonoBehaviour
     public bool isCrouching = false;
 
     //local data for multiplayer
-    private Vector3 curPosition;
     private int playerId;
     private int lobbyId;
-    public GameObject otherPlayerPrefab;
-    private LobbyPlayers[] otherPlayers;
 
     private bool OnSlope()
     {
@@ -81,15 +77,14 @@ public class PlayerController : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
 
-        curPosition = transform.position;
+        // hard coded values ---------------
         playerId = 1;
         lobbyId = 1;
+        // hard coded values ---------------
 
         APIHelper.SyncLocation(playerId, lobbyId, transform.position.x, transform.position.y, transform.position.z);
 
         StartCoroutine(PlayerMovement());
-        playerId = 1; // ** Manually set id of player here (until gamecode issue is fixed)
-        otherPlayers = new LobbyPlayers[2]; // ** This is a hard coded value, this will change once the server side works
     }
 
     private void Update()
@@ -97,7 +92,6 @@ public class PlayerController : MonoBehaviour
         isGrounded = Physics.CheckSphere(transform.position - new Vector3(0, 1, 0), groundDistance, groundMask);
 
         MyInput();
-        curPosition = transform.position;
         ControlDrag();
         ControlSpeed();
 
@@ -151,10 +145,7 @@ public class PlayerController : MonoBehaviour
 
     IEnumerator PlayerMovement()
     {
-        if (transform.position != curPosition) //check for movement, if movement send to API
-        {
-            APIHelper.SyncLocation(playerId, lobbyId, transform.position.x, transform.position.y, transform.position.z);
-        }
+        APIHelper.SyncLocation(playerId, lobbyId, transform.position.x, transform.position.y, transform.position.z);
         yield return null;
     }
 
