@@ -154,7 +154,7 @@ AudioListener:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 999251517}
-  m_Enabled: 1
+  m_Enabled: 0
 --- !u!1 &1397588078
 GameObject:
   m_ObjectHideFlags: 0
@@ -859,14 +859,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd8d8c4e17f5ae2428c95884fcaa7527, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sensX: 20
-  sensY: 20
+  normalSensX: 0
+  normalSensY: 0
+  zoomSensX: 0
+  zoomSensY: 0
   playerController: {fileID: 6367314311482220846}
   wallrun: {fileID: 6367314311482220850}
   fov: 90
   sprintFov: 95
   wallRunfov: 100
   fovTime: 20
+  zoomFov: 0
   orientation: {fileID: 6367314311482220844}
 --- !u!114 &6367314311482220850
 MonoBehaviour:

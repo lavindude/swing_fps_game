@@ -12,10 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a916e8acf2f6d4c4480e8ecfefba7605, type: 3}
   m_Name: AR
   m_EditorClassIdentifier: 
-  gunName: 
+  gunName: AR
   gunPrefab: {fileID: 9130633724726161892, guid: f016ba04160d5d447901045393bbd0ce, type: 3}
   minDamage: 25
   maxDamage: 75
   maximumRange: 100
+  totalAmmo: 100
+  magazineSize: 25
   ImpactParticleSystem: {fileID: 3631556063007445644, guid: 966519976ebd1e3428ae9a780403a1c7, type: 3}
   fireRate: 10
