@@ -84,7 +84,7 @@ public class PlayerController : MonoBehaviour
 
         APIHelper.SyncLocation(playerId, lobbyId, transform.position.x, transform.position.y, transform.position.z);
 
-        StartCoroutine(PlayerMovement());
+        
     }
 
     private void Update()
@@ -103,6 +103,7 @@ public class PlayerController : MonoBehaviour
         slopeMoveDirection = Vector3.ProjectOnPlane(moveDirection, slopeHit.normal);
 
         Crouch();
+        StartCoroutine(PlayerMovement());
     }
 
     void ControlDrag()
@@ -146,6 +147,7 @@ public class PlayerController : MonoBehaviour
     IEnumerator PlayerMovement()
     {
         APIHelper.SyncLocation(playerId, lobbyId, transform.position.x, transform.position.y, transform.position.z);
+        //Debug.Log("Hello");
         yield return null;
     }
 
