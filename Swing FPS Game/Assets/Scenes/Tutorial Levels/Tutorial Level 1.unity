@@ -1906,7 +1906,7 @@ Transform:
   m_GameObject: {fileID: 1514525062}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -28, y: 2.55, z: 0}
-  m_LocalScale: {x: 7, y: 1, z: 20}
+  m_LocalScale: {x: 5.5, y: 1, z: 20}
   m_Children: []
   m_Father: {fileID: 412592316}
   m_RootOrder: 7
@@ -2194,7 +2194,7 @@ Transform:
   m_GameObject: {fileID: 1609426677}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -9, y: 2.55, z: 0}
-  m_LocalScale: {x: 2.5, y: 1, z: 20}
+  m_LocalScale: {x: 2, y: 1, z: 20}
   m_Children: []
   m_Father: {fileID: 412592316}
   m_RootOrder: 6
@@ -3289,15 +3289,31 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6367314311482220846, guid: 5441dac5df8cf634588f8f859e7a7f95, type: 3}
-      propertyPath: walkSlideForce
-      value: 0
+    - target: {fileID: 6367314311482220845, guid: 5441dac5df8cf634588f8f859e7a7f95, type: 3}
+      propertyPath: zoomFov
+      value: 90
       objectReference: {fileID: 0}
-    - target: {fileID: 6367314311482220846, guid: 5441dac5df8cf634588f8f859e7a7f95, type: 3}
-      propertyPath: sprintSlideForce
-      value: 20
+    - target: {fileID: 6367314311482220845, guid: 5441dac5df8cf634588f8f859e7a7f95, type: 3}
+      propertyPath: zoomSensX
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 6367314311482220845, guid: 5441dac5df8cf634588f8f859e7a7f95, type: 3}
+      propertyPath: zoomSensY
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 6367314311482220845, guid: 5441dac5df8cf634588f8f859e7a7f95, type: 3}
+      propertyPath: normalSensX
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 6367314311482220845, guid: 5441dac5df8cf634588f8f859e7a7f95, type: 3}
+      propertyPath: normalSensY
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 6367314311482220848, guid: 5441dac5df8cf634588f8f859e7a7f95, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6367314311482220850, guid: 5441dac5df8cf634588f8f859e7a7f95, type: 3}
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
