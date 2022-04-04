@@ -374,6 +374,7 @@ MonoBehaviour:
   guns:
   - {fileID: 11400000, guid: 5a932e357d518204ea6c3e11516d0e16, type: 2}
   - {fileID: 11400000, guid: b6e45eec1b3e4bb459b463164a824050, type: 2}
+  currentGunNum: 0
 --- !u!1 &6367314309513062327
 GameObject:
   m_ObjectHideFlags: 0
@@ -840,7 +841,7 @@ MonoBehaviour:
   walkSpeed: 8
   sprintSpeed: 15
   acceleration: 10
-  jumpForce: 9
+  jumpForce: 12
   sprintSlideForce: 30
   walkSlideForce: 10
   slideLength: 0.5
@@ -867,8 +868,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd8d8c4e17f5ae2428c95884fcaa7527, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sensX: 20
-  sensY: 20
+  normalSensX: 10
+  normalSensY: 10
+  zoomSensX: 6
+  zoomSensY: 6
   playerController: {fileID: 6367314311482220846}
   wallrun: {fileID: 6367314311482220850}
   fov: 90
@@ -876,6 +879,7 @@ MonoBehaviour:
   slideFov: 95
   wallRunfov: 100
   fovTime: 20
+  zoomFov: 0
   orientation: {fileID: 6367314311482220844}
 --- !u!114 &6367314311482220850
 MonoBehaviour:
@@ -892,8 +896,8 @@ MonoBehaviour:
   orientation: {fileID: 6367314311482220844}
   wallDistance: 0.6
   minimumJumpHeight: 1.5
-  wallRunGravity: 1
-  wallRunJumpForce: 2
+  wallRunGravity: 0.5
+  wallRunJumpForce: 2.5
   cam: {fileID: 6367314310823367089}
   camTilt: 10
   camTiltTime: 20
