@@ -896,7 +896,7 @@ MonoBehaviour:
   wallDistance: 0.6
   minimumJumpHeight: 1.5
   wallRunGravity: 0.5
-  wallRunJumpForce: 2
+  wallRunJumpForce: 2.5
   cam: {fileID: 6367314310823367089}
   camTilt: 10
   camTiltTime: 20
