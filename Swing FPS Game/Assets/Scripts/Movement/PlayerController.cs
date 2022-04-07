@@ -84,7 +84,7 @@ public class PlayerController : MonoBehaviour
 
         APIHelper.SyncLocation(playerId, lobbyId, transform.position.x, transform.position.y, transform.position.z);
 
-        
+        // CoRoutine renovation: https://weeklyhow.com/unity-restful-api/
     }
 
     private void Update()
