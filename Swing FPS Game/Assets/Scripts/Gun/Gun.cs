@@ -13,6 +13,7 @@ public class Gun : ScriptableObject
     public int maxDamage;
     public float maximumRange;
     [SerializeField] private GameObject ImpactParticleSystem;
+    [SerializeField] private ParticleSystem MuzzleParticleSystem;
 
     public virtual void OnLeftMouseDown(Transform cameraPos) { }
     public virtual void OnLeftMouseHold(Transform cameraPos) { }
@@ -30,6 +31,7 @@ public class Gun : ScriptableObject
             }
 
             Instantiate(ImpactParticleSystem, whatIHit.point, Quaternion.LookRotation(whatIHit.normal));
+            MuzzleParticleSystem.Emit(1);
         }
     }
 
