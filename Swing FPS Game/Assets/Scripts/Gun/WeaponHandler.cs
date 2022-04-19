@@ -6,7 +6,7 @@ public class WeaponHandler : MonoBehaviour
 {
     public List<Gun> guns = new List<Gun>();
 
-    private Gun currentGun;
+    public Gun currentGun;
     private Transform cameraTransform;
     private GameObject currentGunPrefab;
     public int currentGunNum;
@@ -20,7 +20,11 @@ public class WeaponHandler : MonoBehaviour
 
     private void Update()
     {
-        CheckForShooting();
+        if (guns.Count > 0)
+        {
+            CheckForShooting();
+        }
+
         if (guns.Count > 0 && currentGunPrefab == null)
         {
             currentGunPrefab = Instantiate(guns[0].gunPrefab, transform);
@@ -28,14 +32,14 @@ public class WeaponHandler : MonoBehaviour
             currentGunNum = 0;
         }
 
-        if (Input.GetKeyDown(KeyCode.Alpha1) && guns.Count > 0)
+        if (Input.GetKeyDown(KeyCode.Alpha1) && guns[0] != null)
         {
             Destroy(currentGunPrefab);
             currentGunPrefab = Instantiate(guns[0].gunPrefab, transform);
             currentGun = guns[0];
             currentGunNum = 0;
         }
-        else if (Input.GetKeyDown(KeyCode.Alpha2) && guns.Count > 1)
+        else if (Input.GetKeyDown(KeyCode.Alpha2) && guns[1] != null)
         {
             Destroy(currentGunPrefab);
             currentGunPrefab = Instantiate(guns[1].gunPrefab, transform);

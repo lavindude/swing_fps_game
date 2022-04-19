@@ -5,6 +5,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New Gun", menuName = "Gun")]
 public class Gun : ScriptableObject
 {
+    public int gunId;
     public string gunName;
     public GameObject gunPrefab;
 

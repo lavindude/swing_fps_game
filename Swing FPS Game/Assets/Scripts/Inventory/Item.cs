@@ -6,6 +6,7 @@ public class Item : MonoBehaviour
 {
     public string type;
     public int gunNum;
+    public int flagNum;
 
     public void PickedUp()
     {

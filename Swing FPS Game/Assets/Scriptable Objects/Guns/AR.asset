@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a916e8acf2f6d4c4480e8ecfefba7605, type: 3}
   m_Name: AR
   m_EditorClassIdentifier: 
+  gunId: 1
   gunName: 
   gunPrefab: {fileID: 9130633724726161892, guid: f016ba04160d5d447901045393bbd0ce, type: 3}
   minDamage: 25
