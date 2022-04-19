@@ -1,6 +1,9 @@
 using UnityEngine;
 using System.Net;
 using System.IO;
+using System;
+using System.Collections;
+using UnityEngine.Networking;
 
 public static class APIHelper
 {
@@ -9,23 +12,14 @@ public static class APIHelper
 
     public static void SyncLocation(int playerId, int lobbyId, float x, float y, float z)
     {
-        string api_url = baseURL + "/syncPlayerPosition?playerId=" + playerId + "&lobbyId=" + 
+        string api_url = baseURL + "/syncPlayerPosition?playerId=" + playerId + "&lobbyId=" +
                                                 lobbyId + "&x=" + x + "&y=" + y + "&z=" + z;
-        HttpWebRequest request = (HttpWebRequest)WebRequest.Create(api_url);
-        request.GetResponse();
+        UnityWebRequest request = UnityWebRequest.Get(api_url);
+        request.SendWebRequest();
     }
 
-    public static PlayerPosition GetPlayerPosition(int userId)
-    {
-        string api_url = baseURL + "/getPosition?userId=" + userId;
-        HttpWebRequest request = (HttpWebRequest)WebRequest.Create(api_url);
-        HttpWebResponse response = (HttpWebResponse)request.GetResponse();
-        StreamReader reader = new StreamReader(response.GetResponseStream());
-        string json = reader.ReadToEnd();
-        return JsonUtility.FromJson<PlayerPosition>(json);
-    }
-
-    public static LobbyPlayers[] GetLobbyPlayers(int lobbyId) // under construction **
+    // ------------------------------------------------
+    public static LobbyPlayers[] GetLobbyPlayers(int lobbyId) // this function is under construction **
     {
         string api_url = baseURL + "/getLobbyPlayers?lobbyId=" + lobbyId;
         HttpWebRequest request = (HttpWebRequest)WebRequest.Create(api_url);

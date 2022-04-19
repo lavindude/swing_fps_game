@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 
 public class EnemyObject
 {
@@ -49,14 +50,26 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        SyncOtherPlayers();
+    }
+
+    void SyncOtherPlayers()
+    {
         StartCoroutine(OtherPlayerMovement());
     }
 
-    IEnumerator OtherPlayerMovement() //make this IEnumerator later
+    IEnumerator OtherPlayerMovement() // not in APIHelper because cannot use IEnumerator
     {
         for (int i = 0; i < otherPlayerObjects.Length; i++)
         {
-            PlayerPosition playerPosition = APIHelper.GetPlayerPosition(otherPlayerObjects[i].enemyId);
+            int userId = otherPlayerObjects[i].enemyId;
+            string baseURL = "http://rest-swing-api.herokuapp.com";
+            string api_url = baseURL + "/getPosition?userId=" + userId;
+            UnityWebRequest request = UnityWebRequest.Get(api_url);
+            yield return request.SendWebRequest();
+
+            string json = request.downloadHandler.text;
+            PlayerPosition playerPosition = JsonUtility.FromJson<PlayerPosition>(json);
             otherPlayerObjects[i].setOtherPlayerPrefab(new Vector3(playerPosition.positionX, playerPosition.positionY, playerPosition.positionZ));
         }
 
