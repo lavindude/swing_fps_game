@@ -7,6 +7,11 @@ public class Automatic : Gun
 {
     public float fireRate;
     private float lastTimeFired;
+
+    private void OnEnable()
+    {
+        lastTimeFired = 0f;
+    }
     public override void OnLeftMouseHold(Transform cameraPos)
     {
         if (Time.time - lastTimeFired > 1 / fireRate)

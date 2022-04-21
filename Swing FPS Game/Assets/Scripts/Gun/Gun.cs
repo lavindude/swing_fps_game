@@ -9,6 +9,7 @@ public class Gun : ScriptableObject
     public GameObject gunPrefab;
 
     [Header("Stats")]
+    public AmmunitionTypes ammunitionType;
     public int minDamage;
     public int maxDamage;
     public float maximumRange;
@@ -21,18 +22,22 @@ public class Gun : ScriptableObject
 
     protected void Fire(Transform cameraPos)
     {
-        RaycastHit whatIHit;
-        if (Physics.Raycast(cameraPos.position, cameraPos.transform.forward, out whatIHit, Mathf.Infinity))
+        if (AmmunitionManager.instance.ConsumeAmmo(ammunitionType))
         {
-            IDamageable damageable = whatIHit.collider.GetComponent<IDamageable>();
-            if (damageable != null)
+            RaycastHit whatIHit;
+            if (Physics.Raycast(cameraPos.position, cameraPos.transform.forward, out whatIHit, Mathf.Infinity))
             {
-                damageable.DealDamage(Mathf.RoundToInt(maxDamage));
-            }
+                IDamageable damageable = whatIHit.collider.GetComponent<IDamageable>();
+                if (damageable != null)
+                {
+                    damageable.DealDamage(Mathf.RoundToInt(maxDamage));
+                }
 
-            Instantiate(ImpactParticleSystem, whatIHit.point, Quaternion.LookRotation(whatIHit.normal));
-            MuzzleParticleSystem.Emit(1);
+                Instantiate(ImpactParticleSystem, whatIHit.point, Quaternion.LookRotation(whatIHit.normal));
+                MuzzleParticleSystem.Emit(1);
+            }
         }
+        
     }
 
 }

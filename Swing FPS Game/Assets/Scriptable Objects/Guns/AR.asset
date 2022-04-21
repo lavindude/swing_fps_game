@@ -13,10 +13,13 @@ MonoBehaviour:
   m_Name: AR
   m_EditorClassIdentifier: 
   gunName: 
-  gunPrefab: {fileID: 9130633724726161892, guid: f016ba04160d5d447901045393bbd0ce, type: 3}
+  gunPrefab: {fileID: 9130633724726161892, guid: f016ba04160d5d447901045393bbd0ce,
+    type: 3}
   minDamage: 25
   maxDamage: 75
   maximumRange: 100
-  ImpactParticleSystem: {fileID: 3631556063007445644, guid: 966519976ebd1e3428ae9a780403a1c7, type: 3}
-  MuzzleParticleSystem: {fileID: 198234346748616026, guid: ad2ab49d0a2a17148bd51c93d977bdbc, type: 3}
+  ImpactParticleSystem: {fileID: 1894958251304933512, guid: 5e5d1edfcd986b64a9ae0e87164d4f27,
+    type: 3}
+  MuzzleParticleSystem: {fileID: 198234346748616026, guid: ad2ab49d0a2a17148bd51c93d977bdbc,
+    type: 3}
   fireRate: 10

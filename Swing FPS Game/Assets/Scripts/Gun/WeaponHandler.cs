@@ -38,7 +38,7 @@ public class WeaponHandler : MonoBehaviour
         {
             currentGun.OnLeftMouseDown(cameraTransform);
         }
-        if (Input.GetMouseButton(0))
+        else if (Input.GetMouseButton(0))
         {
             currentGun.OnLeftMouseHold(cameraTransform);
         }

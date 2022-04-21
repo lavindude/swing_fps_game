@@ -134,6 +134,7 @@ GameObject:
   - component: {fileID: 1389689049}
   - component: {fileID: 1389689048}
   - component: {fileID: 1389689050}
+  - component: {fileID: 1389689051}
   m_Layer: 0
   m_Name: Manager
   m_TagString: Untagged
@@ -179,3 +180,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1ec5715f3b5d7c4caad769f7e838ab8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1389689051
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1389689047}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ec76dfe0b9b505419db374b86194058, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ammoCount: 50
