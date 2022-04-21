@@ -382,11 +382,6 @@ Camera:
   m_CorrespondingSourceObject: {fileID: 6367314310823367089, guid: 5441dac5df8cf634588f8f859e7a7f95, type: 3}
   m_PrefabInstance: {fileID: 6367314311203421378}
   m_PrefabAsset: {fileID: 0}
---- !u!4 &306102266 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 6367314310823367094, guid: 5441dac5df8cf634588f8f859e7a7f95, type: 3}
-  m_PrefabInstance: {fileID: 6367314311203421378}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &306102268
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1558,36 +1553,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a868a73bd9a418f43ae8b73f45a6f914, type: 3}
---- !u!1 &841053740
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 841053741}
-  m_Layer: 10
-  m_Name: DropPosition
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &841053741
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 841053740}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 1.083}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 306102266}
-  m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &972227400
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3519,6 +3484,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 6367314309998340788, guid: 5441dac5df8cf634588f8f859e7a7f95, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6367314309998340790, guid: 5441dac5df8cf634588f8f859e7a7f95, type: 3}
       propertyPath: m_Layer
       value: 10
@@ -3611,5 +3580,6 @@ PrefabInstance:
       propertyPath: grappleExtendSpeed
       value: 0.1
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 6367314309998340788, guid: 5441dac5df8cf634588f8f859e7a7f95, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 5441dac5df8cf634588f8f859e7a7f95, type: 3}
