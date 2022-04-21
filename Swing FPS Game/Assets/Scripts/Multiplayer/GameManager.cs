@@ -34,7 +34,7 @@ public class GameManager : MonoBehaviour
     {
         // hard coded values ---------------
         playerId = 1;
-        otherPlayerIds = new int[] { 2, 3 };
+        otherPlayerIds = new int[] { 2, 3, 4 };
         lobbyId = 1;
         // hard coded values ---------------
         otherPlayerObjects = new EnemyObject[otherPlayerIds.Length];
