@@ -66,9 +66,12 @@ public class GameManager : MonoBehaviour
             string baseURL = "http://rest-swing-api.herokuapp.com";
             string api_url = baseURL + "/getPosition?userId=" + userId;
             UnityWebRequest request = UnityWebRequest.Get(api_url);
-            yield return request.SendWebRequest();
+            
+            request.SendWebRequest();
+            //new WaitForSeconds(1);
 
             string json = request.downloadHandler.text;
+            Debug.Log(json);
             PlayerPosition playerPosition = JsonUtility.FromJson<PlayerPosition>(json);
             otherPlayerObjects[i].setOtherPlayerPrefab(new Vector3(playerPosition.positionX, playerPosition.positionY, playerPosition.positionZ));
         }
