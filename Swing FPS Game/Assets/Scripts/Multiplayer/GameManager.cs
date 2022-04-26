@@ -45,12 +45,14 @@ public class GameManager : MonoBehaviour
             EnemyObject newEnemyObject = new EnemyObject(otherPlayerIds[i], newEnemy);
             otherPlayerObjects[i] = newEnemyObject;
         }
+
+        InvokeRepeating("SyncOtherPlayers", 0, 0.5f);
     }
 
     // Update is called once per frame
     void Update()
     {
-        SyncOtherPlayers();
+        //SyncOtherPlayers();
     }
 
     void SyncOtherPlayers()
@@ -67,11 +69,9 @@ public class GameManager : MonoBehaviour
             string api_url = baseURL + "/getPosition?userId=" + userId;
             UnityWebRequest request = UnityWebRequest.Get(api_url);
             
-            request.SendWebRequest();
-            //new WaitForSeconds(1);
+            yield return request.SendWebRequest();
 
             string json = request.downloadHandler.text;
-            Debug.Log(json);
             PlayerPosition playerPosition = JsonUtility.FromJson<PlayerPosition>(json);
             otherPlayerObjects[i].setOtherPlayerPrefab(new Vector3(playerPosition.positionX, playerPosition.positionY, playerPosition.positionZ));
         }
