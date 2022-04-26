@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class PlayerController : MonoBehaviour
 {
@@ -61,6 +62,10 @@ public class PlayerController : MonoBehaviour
     public bool isSprinting = false;
     public bool isCrouching = false;
     public bool isSliding = false;
+
+    public TextMeshProUGUI chestOpenText;
+    public TextMeshProUGUI chestCloseText;
+
 
     private bool OnSlope()
     {
@@ -233,6 +238,32 @@ public class PlayerController : MonoBehaviour
         {
             isSliding = false;
         }
+    }
+
+    public void SetOpenTextTrue()
+    {
+        chestOpenText.gameObject.SetActive(true);
+    }
+
+    public void SetOpenTextFalse()
+    {
+        chestOpenText.gameObject.SetActive(false);
+    }
+
+    public void SetCloseTextTrue()
+    {
+        chestCloseText.gameObject.SetActive(true);
+    }
+
+    public void SetCloseTextFalse()
+    {
+        chestCloseText.gameObject.SetActive(false);
+    }
+
+    public void SetChestTextFalse()
+    {
+        chestOpenText.gameObject.SetActive(false);
+        chestCloseText.gameObject.SetActive(false);
     }
 }
              
