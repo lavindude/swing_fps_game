@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -14,16 +15,16 @@ public class EnemyObject
         enemyPrefab = otherPlayerPrefab;
     }
 
-    public void setOtherPlayerPrefab(Vector3 otherPosition)
+    public void setOtherPlayerPrefab(float x, float z)
     {
-        enemyPrefab.transform.position = otherPosition;
+        Vector3 newPosition = new Vector3(x, enemyPrefab.transform.position.y, z);
+        enemyPrefab.transform.position = newPosition;
     }
 }
 
 public class GameManager : MonoBehaviour
 {
     //local data for multiplayer
-    private int lobbyId;
     private int playerId;
     public GameObject otherPlayerPrefab;
     private int[] otherPlayerIds;
@@ -35,7 +36,6 @@ public class GameManager : MonoBehaviour
         // hard coded values ---------------
         playerId = 1;
         otherPlayerIds = new int[] { 2, 3, 4 };
-        lobbyId = 1;
         // hard coded values ---------------
         otherPlayerObjects = new EnemyObject[otherPlayerIds.Length];
 
@@ -50,15 +50,54 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        SyncOtherPlayers();
+        OtherPlayerMovement();
+        //printEnemyObjects();
     }
 
-    void SyncOtherPlayers()
+    /*void SyncOtherPlayers()
     {
         StartCoroutine(OtherPlayerMovement());
+    }*/
+
+    public void printEnemyObjects()
+    {
+        for (int i = 0; i < otherPlayerObjects.Length; i++)
+        {
+            Debug.Log("---------");
+            Debug.Log(otherPlayerObjects[i].enemyId);
+        }
     }
 
-    IEnumerator OtherPlayerMovement() // not in APIHelper because cannot use IEnumerator
+    public async void OtherPlayerMovement()
+    {
+        for (int i = 0; i < otherPlayerObjects.Length; i++)
+        {
+            int userId = otherPlayerObjects[i].enemyId;
+            string baseURL = "http://rest-swing-api.herokuapp.com";
+            string api_url = baseURL + "/getPosition?userId=" + userId;
+            UnityWebRequest request = UnityWebRequest.Get(api_url);
+            var operation = request.SendWebRequest();
+
+            while (!operation.isDone)
+                await Task.Yield();
+
+            if (request.result == UnityWebRequest.Result.Success)
+            {
+                string json = request.downloadHandler.text;
+                Debug.Log(json);
+                PlayerPosition playerPosition = JsonUtility.FromJson<PlayerPosition>(json);
+                otherPlayerObjects[i].setOtherPlayerPrefab(playerPosition.positionX, playerPosition.positionZ);
+            }
+
+            else
+            {
+                Debug.Log("Fail");
+                //i--;
+            }
+        }
+    }
+
+    /*IEnumerator OtherPlayerMovement() // not in APIHelper because cannot use IEnumerator
     {
         for (int i = 0; i < otherPlayerObjects.Length; i++)
         {
@@ -67,15 +106,13 @@ public class GameManager : MonoBehaviour
             string api_url = baseURL + "/getPosition?userId=" + userId;
             UnityWebRequest request = UnityWebRequest.Get(api_url);
             
-            request.SendWebRequest();
-            //new WaitForSeconds(1);
-
+            yield return request.SendWebRequest();
             string json = request.downloadHandler.text;
             Debug.Log(json);
             PlayerPosition playerPosition = JsonUtility.FromJson<PlayerPosition>(json);
             otherPlayerObjects[i].setOtherPlayerPrefab(new Vector3(playerPosition.positionX, playerPosition.positionY, playerPosition.positionZ));
         }
 
-        yield return null;
-    }
+        yield return new WaitForSeconds(1);
+    }*/
 }
