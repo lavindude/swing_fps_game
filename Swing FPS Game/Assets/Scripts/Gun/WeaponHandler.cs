@@ -70,4 +70,9 @@ public class WeaponHandler : MonoBehaviour
         currentGunPrefab = Instantiate(guns[currentGunNum].gunPrefab, transform);
         currentGun = guns[currentGunNum];
     }
+
+    public void setAmmo(Item item)
+    {
+        currentGun.ammoAmount = item.ammoAmount;
+    }
 }

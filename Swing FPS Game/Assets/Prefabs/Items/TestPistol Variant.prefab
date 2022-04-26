@@ -44,6 +44,8 @@ MonoBehaviour:
   type: Gun
   gunNum: 0
   flagNum: 0
+  ammoAmount: 6
+  maxAmmo: 0
 --- !u!1001 &8267030759703411573
 PrefabInstance:
   m_ObjectHideFlags: 0

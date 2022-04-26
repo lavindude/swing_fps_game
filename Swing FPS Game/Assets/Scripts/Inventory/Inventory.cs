@@ -77,6 +77,7 @@ public class Inventory : MonoBehaviour
             weaponHandler.guns.Insert(weaponHandler.currentGunNum, guns[item.gunNum]);
             weaponHandler.guns.RemoveAt(weaponHandler.currentGunNum + 1);
             weaponHandler.UpdateGuns();
+            weaponHandler.setAmmo(item);
         }
 
         item.gameObject.GetComponent<Item>().PickedUp();
@@ -88,6 +89,7 @@ public class Inventory : MonoBehaviour
         newGun.transform.position = dropPos.position;
         newGun.transform.rotation = playerCam.transform.rotation;
         newGun.GetComponent<Rigidbody>().AddForce(playerCam.transform.forward * dropForce, ForceMode.Impulse);
+        newGun.GetComponent<Item>().ammoAmount = weaponHandler.currentGun.ammoAmount;
         weaponHandler.guns.RemoveAt(weaponHandler.currentGunNum);
         weaponHandler.UpdateGuns();
     }

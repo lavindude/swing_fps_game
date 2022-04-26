@@ -8,6 +8,8 @@ public class Gun : ScriptableObject
     public int gunId;
     public string gunName;
     public GameObject gunPrefab;
+    public int ammoAmount;
+    public int maxAmmo;
 
     [Header("Stats")]
     public int minDamage;
@@ -21,17 +23,21 @@ public class Gun : ScriptableObject
 
     protected void Fire(Transform cameraPos)
     {
-        RaycastHit whatIHit;
-        if (Physics.Raycast(cameraPos.position, cameraPos.transform.forward, out whatIHit, Mathf.Infinity))
+        if (ammoAmount > 0)
         {
-            IDamageable damageable = whatIHit.collider.GetComponent<IDamageable>();
-            if (damageable != null)
+            RaycastHit whatIHit;
+            if (Physics.Raycast(cameraPos.position, cameraPos.transform.forward, out whatIHit, Mathf.Infinity))
             {
-                damageable.DealDamage(Mathf.RoundToInt(maxDamage));
+                IDamageable damageable = whatIHit.collider.GetComponent<IDamageable>();
+                if (damageable != null)
+                {
+                    damageable.DealDamage(Mathf.RoundToInt(maxDamage));
+                }
+
+                Instantiate(ImpactParticleSystem, whatIHit.point, Quaternion.LookRotation(whatIHit.normal));
             }
 
-            Instantiate(ImpactParticleSystem, whatIHit.point, Quaternion.LookRotation(whatIHit.normal));
+            ammoAmount--;
         }
     }
-
 }
