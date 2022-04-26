@@ -46,7 +46,7 @@ public class GameManager : MonoBehaviour
             otherPlayerObjects[i] = newEnemyObject;
         }
 
-        InvokeRepeating("SyncOtherPlayers", 0, 0.5f);
+        InvokeRepeating("SyncOtherPlayers", 0, 0.01f);
     }
 
     // Update is called once per frame
