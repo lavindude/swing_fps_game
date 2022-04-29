@@ -15,6 +15,8 @@ MonoBehaviour:
   gunId: 1
   gunName: 
   gunPrefab: {fileID: 9130633724726161892, guid: f016ba04160d5d447901045393bbd0ce, type: 3}
+  ammoAmount: 30
+  maxAmmo: 30
   minDamage: 25
   maxDamage: 75
   maximumRange: 100

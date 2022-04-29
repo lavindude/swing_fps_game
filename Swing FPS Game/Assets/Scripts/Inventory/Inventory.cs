@@ -70,7 +70,38 @@ public class Inventory : MonoBehaviour
     {
         if (weaponHandler.guns.Count < 2)
         {
-            weaponHandler.guns.Add(guns[item.gunNum]);
+            Manual man;
+            Automatic auto;
+
+            if (item.gunNum == 0)
+            {
+                man = ScriptableObject.CreateInstance<Manual>();
+                man.gunId = guns[item.gunNum].gunId;
+                man.gunName = guns[item.gunNum].gunName;
+                man.gunPrefab = guns[item.gunNum].gunPrefab;
+                man.ammoAmount = item.ammoAmount;
+                man.maxAmmo = guns[item.gunNum].maxAmmo;
+                man.minDamage = guns[item.gunNum].minDamage;
+                man.maxDamage = guns[item.gunNum].maxDamage;
+                man.maximumRange = guns[item.gunNum].maximumRange;
+                man.ImpactParticleSystem = guns[item.gunNum].ImpactParticleSystem;
+                weaponHandler.guns.Add(man);
+            }
+            else
+            {
+                auto = ScriptableObject.CreateInstance<Automatic>();
+                auto.gunId = guns[item.gunNum].gunId;
+                auto.gunName = guns[item.gunNum].gunName;
+                auto.gunPrefab = guns[item.gunNum].gunPrefab;
+                auto.ammoAmount = item.ammoAmount;
+                auto.maxAmmo = guns[item.gunNum].maxAmmo;
+                auto.minDamage = guns[item.gunNum].minDamage;
+                auto.maxDamage = guns[item.gunNum].maxDamage;
+                auto.maximumRange = guns[item.gunNum].maximumRange;
+                auto.ImpactParticleSystem = guns[item.gunNum].ImpactParticleSystem;
+                auto.fireRate = 10;
+                weaponHandler.guns.Add(auto);
+            }
         }
         else
         {

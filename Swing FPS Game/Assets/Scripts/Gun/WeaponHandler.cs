@@ -23,6 +23,7 @@ public class WeaponHandler : MonoBehaviour
         if (guns.Count > 0)
         {
             CheckForShooting();
+            Reload();
         }
 
         if (guns.Count > 0 && currentGunPrefab == null)
@@ -74,5 +75,16 @@ public class WeaponHandler : MonoBehaviour
     public void setAmmo(Item item)
     {
         currentGun.ammoAmount = item.ammoAmount;
+    }
+
+    public void Reload()
+    {
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            if (currentGun.ammoAmount != currentGun.maxAmmo)
+            {
+                currentGun.ammoAmount = currentGun.maxAmmo;
+            }
+        }
     }
 }
