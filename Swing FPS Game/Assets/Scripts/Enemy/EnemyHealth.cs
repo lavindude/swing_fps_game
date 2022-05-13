@@ -23,7 +23,16 @@ public class EnemyHealth : MonoBehaviour, IDamageable
 
     public void DealDamage(int damage)
     {
+        //send info to API that this player got shot
+        for (int i = 0; i < EnemyObjectData.otherPlayerObjects.Length; i++)
+        {
+            if (EnemyObjectData.otherPlayerObjects[i] != null && EnemyObjectData.otherPlayerObjects[i].enemyPrefab == gameObject)
+            {
+                APIHelper.DealDamage(EnemyObjectData.otherPlayerObjects[i].enemyId, damage);
+                break;
+            }
+        }
         currentHealth -= damage;
-        CheckIfDead();
+        //CheckIfDead(); removed this for now so it respawns instead of destroying
     }
 }

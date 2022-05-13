@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 
 public class PlayerController : MonoBehaviour
 {
@@ -109,6 +110,7 @@ public class PlayerController : MonoBehaviour
     void SyncPlayer()
     {
         StartCoroutine(PlayerMovement());
+        StartCoroutine(CheckHealth());
     }
 
     void ControlDrag()
@@ -152,6 +154,20 @@ public class PlayerController : MonoBehaviour
     IEnumerator PlayerMovement()
     {
         APIHelper.SyncLocation(playerId, lobbyId, transform.position.x, transform.position.y, transform.position.z);
+        yield return null;
+    }
+
+    IEnumerator CheckHealth() //***not complete yet **
+    {
+        string baseURL = "http://rest-swing-api.herokuapp.com";
+        string api_url = baseURL + "/getHealth?playerId=" + playerId;
+        UnityWebRequest request = UnityWebRequest.Get(api_url);
+
+        yield return request.SendWebRequest();
+
+        string json = request.downloadHandler.text;
+        RespawnData playerPosition = JsonUtility.FromJson<RespawnData>(json);
+
         yield return null;
     }
 

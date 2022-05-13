@@ -18,6 +18,13 @@ public static class APIHelper
         request.SendWebRequest();
     }
 
+    public static void DealDamage(int playerId, int damage)
+    {
+        string api_url = baseURL + "/dealDamage?playerId=" + playerId + "&damage=" + damage;
+        UnityWebRequest request = UnityWebRequest.Get(api_url);
+        request.SendWebRequest();
+    }
+
     // ------------------------------------------------
     public static LobbyPlayers[] GetLobbyPlayers(int lobbyId) // this function is under construction **
     {

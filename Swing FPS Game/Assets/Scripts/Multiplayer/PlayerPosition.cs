@@ -5,4 +5,5 @@ public class PlayerPosition
     public float positionX;
     public float positionY;
     public float positionZ;
+    public float health;
 }
