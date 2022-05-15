@@ -157,7 +157,7 @@ public class PlayerController : MonoBehaviour
         yield return null;
     }
 
-    IEnumerator CheckHealth() //***not complete yet **
+    IEnumerator CheckHealth()
     {
         string baseURL = "http://rest-swing-api.herokuapp.com";
         string api_url = baseURL + "/getHealth?playerId=" + playerId;
@@ -166,7 +166,12 @@ public class PlayerController : MonoBehaviour
         yield return request.SendWebRequest();
 
         string json = request.downloadHandler.text;
-        RespawnData playerPosition = JsonUtility.FromJson<RespawnData>(json);
+        RespawnData respawnData = JsonUtility.FromJson<RespawnData>(json);
+        if (respawnData.health <= 0)
+        {
+            transform.position = new Vector3(respawnData.startX, respawnData.startY, respawnData.startZ);
+            APIHelper.SendPlayerDeathReceived(playerId);
+        }
 
         yield return null;
     }

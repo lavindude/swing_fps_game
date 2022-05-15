@@ -25,6 +25,13 @@ public static class APIHelper
         request.SendWebRequest();
     }
 
+    public static void SendPlayerDeathReceived(int playerId)
+    {
+        string api_url = baseURL + "/deathConfirmed?playerId=" + playerId;
+        UnityWebRequest request = UnityWebRequest.Get(api_url);
+        request.SendWebRequest();
+    }
+
     // ------------------------------------------------
     public static LobbyPlayers[] GetLobbyPlayers(int lobbyId) // this function is under construction **
     {
