@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.Networking;
 
 public class PlayerController : MonoBehaviour
 {
@@ -66,6 +67,10 @@ public class PlayerController : MonoBehaviour
     public bool isCrouching = false;
     public bool isSliding = false;
 
+    //local data for multiplayer
+    private int playerId;
+    private int lobbyId;
+
     private bool OnSlope()
     {
         if (Physics.Raycast(transform.position, Vector3.down, out slopeHit, playerHeight / 2 + 0.1f))
@@ -87,6 +92,13 @@ public class PlayerController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
+
+        // hard coded values ---------------
+        playerId = 1;
+        lobbyId = 1;
+        // hard coded values ---------------
+
+        APIHelper.SyncLocation(playerId, lobbyId, transform.position.x, transform.position.y, transform.position.z);
     }
 
     private void Update()
@@ -107,6 +119,7 @@ public class PlayerController : MonoBehaviour
         SetSlideSettings();
         Slide();
         Crouch();
+        SyncPlayer();
 
         if (isCrouching || isSliding)
         {
@@ -118,6 +131,12 @@ public class PlayerController : MonoBehaviour
         }
 
         updateHealthText();
+    }
+
+    void SyncPlayer()
+    {
+        StartCoroutine(PlayerMovement());
+        StartCoroutine(CheckHealth());
     }
 
     void ControlDrag()
@@ -161,6 +180,30 @@ public class PlayerController : MonoBehaviour
         verticalMovement = Input.GetAxisRaw("Vertical");
 
         moveDirection = orientation.forward * verticalMovement + orientation.right * horizontalMovement;
+    }
+    IEnumerator PlayerMovement()
+    {
+        APIHelper.SyncLocation(playerId, lobbyId, transform.position.x, transform.position.y, transform.position.z);
+        yield return null;
+    }
+
+    IEnumerator CheckHealth()
+    {
+        string baseURL = "http://rest-swing-api.herokuapp.com";
+        string api_url = baseURL + "/getHealth?playerId=" + playerId;
+        UnityWebRequest request = UnityWebRequest.Get(api_url);
+
+        yield return request.SendWebRequest();
+
+        string json = request.downloadHandler.text;
+        RespawnData respawnData = JsonUtility.FromJson<RespawnData>(json);
+        if (respawnData.health <= 0)
+        {
+            transform.position = new Vector3(respawnData.startX, respawnData.startY, respawnData.startZ);
+            APIHelper.SendPlayerDeathReceived(playerId);
+        }
+
+        yield return null;
     }
 
     private void FixedUpdate()
