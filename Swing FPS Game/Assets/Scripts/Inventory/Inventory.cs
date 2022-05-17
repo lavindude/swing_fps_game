@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 
 public class Inventory : MonoBehaviour
 {
@@ -12,12 +14,39 @@ public class Inventory : MonoBehaviour
     public List<GameObject> prefabs = new List<GameObject>();
     public Transform dropPos;
     public int dropForce;
+    public Grapple grapple;
 
     public WeaponHandler weaponHandler;
+
+    public TextMeshProUGUI ammoText;
+    public TextMeshProUGUI grappleText;
+
+    public Sprite flagEnabled;
+    public Sprite flagDisabled;
+    public List<Image> flagImages;
+
+    public List<Sprite> gunImages;
+    public Sprite emptyGunImage;
+    public Image gun1Image;
+    public Image gun2Image;
+    public int gunsHeld;
 
     void Update()
     {
         Detect();
+        Display();
+        gunsHeld = weaponHandler.guns.Count;
+        UpdateGunImages();
+    }
+
+    private void Awake()
+    {
+        for (int i = 0; i < flagImages.Count; i++)
+        {
+            flagImages[i].enabled = false;
+        }
+
+        gunsHeld = 0;
     }
 
     void Detect()
@@ -35,6 +64,11 @@ public class Inventory : MonoBehaviour
                 else if (hit.collider.gameObject.GetComponent<Item>().type == "Flag")
                 {
                     PickupFlag(hit.collider.gameObject.GetComponent<Item>());
+                }
+                else if (hit.collider.gameObject.GetComponent<Item>().type == "Grapple")
+                {
+                    grapple.grapplesLeft++;
+                    hit.collider.gameObject.GetComponent<Item>().PickedUp();
                 }
             }
         }
@@ -63,6 +97,7 @@ public class Inventory : MonoBehaviour
         {
             inventory.Add(flags[item.flagNum - 1]);
             item.gameObject.GetComponent<Item>().PickedUp();
+            ShowFlag();
         }
     }
 
@@ -123,5 +158,43 @@ public class Inventory : MonoBehaviour
         newGun.GetComponent<Item>().ammoAmount = weaponHandler.currentGun.ammoAmount;
         weaponHandler.guns.RemoveAt(weaponHandler.currentGunNum);
         weaponHandler.UpdateGuns();
+    }
+
+    void Display()
+    {
+        if (weaponHandler.guns.Count > 0)
+        {
+            ammoText.text = weaponHandler.currentGun.ammoAmount + " / " + weaponHandler.currentGun.maxAmmo;
+        }
+        else
+        {
+            ammoText.text = "";
+        }
+
+        grappleText.text = grapple.grapplesLeft.ToString();
+    }
+
+    void ShowFlag()
+    {
+        flagImages[inventory.Count - 1].enabled = true;
+    }
+
+    void UpdateGunImages()
+    {
+        if (gunsHeld == 2)
+        {
+            gun1Image.sprite = gunImages[weaponHandler.guns[0].gunId];
+            gun2Image.sprite = gunImages[weaponHandler.guns[1].gunId];
+        }
+        else if (gunsHeld == 1)
+        {
+            gun1Image.sprite = gunImages[weaponHandler.guns[0].gunId];
+            gun2Image.sprite = emptyGunImage;
+        }
+        else
+        {
+            gun1Image.sprite = emptyGunImage;
+            gun2Image.sprite = emptyGunImage;
+        }
     }
 }

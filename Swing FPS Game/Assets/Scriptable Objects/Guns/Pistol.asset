@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: Pistol
   m_EditorClassIdentifier: 
   gunId: 0
-  gunName: 
+  gunName: 0
   gunPrefab: {fileID: 6501109862740084902, guid: 3665ddab5667f4a4fa5fb1769427e223, type: 3}
-  ammoAmount: 6
+  ammoAmount: 5
   maxAmmo: 6
   minDamage: 5
   maxDamage: 150

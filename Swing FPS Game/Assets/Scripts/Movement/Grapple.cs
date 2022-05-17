@@ -19,6 +19,7 @@ public class Grapple : MonoBehaviour
     public float spring;
     public float damper;
     public float grapplePullForce;
+    public float grapplesLeft;
 
     // Start is called before the first frame update
     void Start()
@@ -43,7 +44,7 @@ public class Grapple : MonoBehaviour
 
         if (Input.GetMouseButtonDown(2))
         {
-            if (Physics.Raycast(cam.transform.position, cam.transform.forward, out hit))
+            if (Physics.Raycast(cam.transform.position, cam.transform.forward, out hit) && grapplesLeft > 0)
             {
                 grapplePoint = hit.point;
                 maxDistance = Vector3.Distance(transform.position, hit.point);
@@ -76,6 +77,7 @@ public class Grapple : MonoBehaviour
         joint.minDistance = 0f;
         joint.spring = spring;
         joint.damper = damper;
+        grapplesLeft--;
     }
 
     void StopGrapple()
