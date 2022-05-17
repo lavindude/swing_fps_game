@@ -1,10 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class PlayerController : MonoBehaviour
 {
     float playerHeight = 2f;
+
+    public float playerHealth;
+    public TextMeshProUGUI healthText;
 
     [SerializeField] Grapple grapple;
 
@@ -112,6 +116,8 @@ public class PlayerController : MonoBehaviour
         {
             cc.height = 2f;
         }
+
+        updateHealthText();
     }
 
     void ControlDrag()
@@ -233,6 +239,11 @@ public class PlayerController : MonoBehaviour
         {
             isSliding = false;
         }
+    }
+
+    void updateHealthText()
+    {
+        healthText.text = playerHealth + " / " + 100;
     }
 }
              
