@@ -129,8 +129,6 @@ public class PlayerController : MonoBehaviour
         {
             cc.height = 2f;
         }
-
-        updateHealthText();
     }
 
     void SyncPlayer()
@@ -282,11 +280,6 @@ public class PlayerController : MonoBehaviour
         {
             isSliding = false;
         }
-    }
-
-    void updateHealthText()
-    {
-        healthText.text = playerHealth + " / " + 100;
     }
 }
              
