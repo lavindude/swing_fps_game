@@ -197,6 +197,7 @@ public class PlayerController : MonoBehaviour
         RespawnData respawnData = JsonUtility.FromJson<RespawnData>(json);
         if (respawnData.health <= 0)
         {
+            gameObject.GetComponent<Inventory>().inventory.Clear();
             transform.position = new Vector3(respawnData.startX, respawnData.startY, respawnData.startZ);
             APIHelper.SendPlayerDeathReceived(playerId);
         }
