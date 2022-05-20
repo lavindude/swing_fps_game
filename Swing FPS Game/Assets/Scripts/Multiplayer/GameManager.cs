@@ -30,6 +30,8 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        //reset this player's health, flags, other data
+
         // hard coded values ---------------
         playerId = 1;
         otherPlayerIds = new int[] { 2, 3, 4 };
