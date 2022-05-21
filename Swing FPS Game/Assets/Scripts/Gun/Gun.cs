@@ -34,7 +34,12 @@ public class Gun : ScriptableObject
                     damageable.DealDamage(Mathf.RoundToInt(maxDamage));
                 }
 
-                Instantiate(ImpactParticleSystem, whatIHit.point, Quaternion.LookRotation(whatIHit.normal));
+                if(whatIHit.collider.tag.CompareTo("NoParticle") != 0)
+                {
+                    Instantiate(ImpactParticleSystem, whatIHit.point, Quaternion.LookRotation(whatIHit.normal));
+                }
+                
+                
             }
 
             ammoAmount--;
