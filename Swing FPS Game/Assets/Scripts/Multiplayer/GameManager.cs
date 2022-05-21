@@ -22,19 +22,16 @@ public class GameManager : MonoBehaviour
     }
 
     //local data for multiplayer
-    private int lobbyId;
-    private int playerId;
     public GameObject otherPlayerPrefab;
     private int[] otherPlayerIds;
 
     // Start is called before the first frame update
     void Start()
     {
-        // hard coded values ---------------
-        playerId = 1;
-        otherPlayerIds = new int[] { 2, 3, 4 };
-        lobbyId = 1;
-        // hard coded values ---------------
+        APIHelper.ResetPlayerData(Constants.playerId, Constants.lobbyId);
+
+        otherPlayerIds = Constants.otherPlayerIds;
+
         EnemyObjectData.setEnemyArrayLength(otherPlayerIds.Length);
 
         for (int i = 0; i < otherPlayerIds.Length; i++)

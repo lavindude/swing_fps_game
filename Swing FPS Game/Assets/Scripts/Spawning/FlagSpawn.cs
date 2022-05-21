@@ -1,36 +1,67 @@
 using System.Collections;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 
 public class FlagSpawn : MonoBehaviour
 {
-    public List<Transform> spawnSetOne;
-    public List<Transform> spawnSetTwo;
-    public List<Transform> spawnSetThree;
-    public List<Transform> spawnSetFour;
-    public List<Transform> spawnSetFive;
-    public List<GameObject> flags;
+    public GameObject[] flags;
+    private int lobbyId;
 
     // Start is called before the first frame update
     void Start()
     {
-        List<Vector3> spawnPositions = new List<Vector3>();
-        spawnPositions.Add(spawnSetOne[Random.Range(0, spawnSetOne.Count - 1)].position);
-        spawnPositions.Add(spawnSetTwo[Random.Range(0, spawnSetTwo.Count - 1)].position);
-        spawnPositions.Add(spawnSetThree[Random.Range(0, spawnSetThree.Count - 1)].position);
-        spawnPositions.Add(spawnSetFour[Random.Range(0, spawnSetFour.Count - 1)].position);
-        spawnPositions.Add(spawnSetFive[Random.Range(0, spawnSetFive.Count - 1)].position);
+        lobbyId = Constants.lobbyId;
 
-        for (int i = 0; i < 5; i++)
-        {
-            GameObject flag = Instantiate(flags[i]);
-            flag.transform.position = spawnPositions[i];
-        }
+        InvokeRepeating("SyncFlags", 0, 0.5f);
     }
 
     // Update is called once per frame
     void Update()
     {
         
+    }
+
+    void SyncFlags()
+    {
+        StartCoroutine(ManageFlags());
+    }
+
+    bool Includes(int[] serverFlags, int item)
+    {
+        for (int i = 0; i < serverFlags.Length; i++)
+        {
+            if (serverFlags[i] == item)
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    IEnumerator ManageFlags()
+    {
+        string baseURL = "http://rest-swing-api.herokuapp.com";
+        string api_url = baseURL + "/getLobbyFlags?lobbyId=" + lobbyId;
+        UnityWebRequest request = UnityWebRequest.Get(api_url);
+        yield return request.SendWebRequest();
+        string json = request.downloadHandler.text;
+        LobbyFlagData flagData = JsonUtility.FromJson<LobbyFlagData>(json);
+        int[] serverFlags = flagData.flagsAvailable;
+
+        for (int i = 0; i < flags.Length; i++)
+        {
+            if (Includes(serverFlags, flags[i].GetComponent<Item>().flagNum))
+            {
+                flags[i].SetActive(true);
+            } else
+            {
+                flags[i].SetActive(false);
+            }
+        }
+
+        yield return null;
     }
 }
