@@ -95,9 +95,9 @@ public class Inventory : MonoBehaviour
 
         if (canAdd)
         {
-            //send data to API that player picked up flag
+            APIHelper.TakeFlag(Constants.playerId, Constants.lobbyId, item.flagNum);
             inventory.Add(flags[item.flagNum - 1]);
-            item.gameObject.GetComponent<Item>().PickedUp();
+            //item.gameObject.GetComponent<Item>().PickedUp(); *don't need this, it's set to inactive in FlagSpawn
             ShowFlag();
         }
     }

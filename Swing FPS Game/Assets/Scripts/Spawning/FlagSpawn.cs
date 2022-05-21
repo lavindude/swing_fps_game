@@ -1,4 +1,5 @@
 using System.Collections;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
@@ -6,22 +7,12 @@ using UnityEngine.Networking;
 public class FlagSpawn : MonoBehaviour
 {
     public GameObject[] flags;
+    private int lobbyId;
 
     // Start is called before the first frame update
     void Start()
     {
-        /*List<Vector3> spawnPositions = new List<Vector3>();
-        spawnPositions.Add(spawnSetOne[Random.Range(0, spawnSetOne.Count - 1)].position);
-        spawnPositions.Add(spawnSetTwo[Random.Range(0, spawnSetTwo.Count - 1)].position);
-        spawnPositions.Add(spawnSetThree[Random.Range(0, spawnSetThree.Count - 1)].position);
-        spawnPositions.Add(spawnSetFour[Random.Range(0, spawnSetFour.Count - 1)].position);
-        spawnPositions.Add(spawnSetFive[Random.Range(0, spawnSetFive.Count - 1)].position);
-
-        for (int i = 0; i < 5; i++)
-        {
-            GameObject flag = Instantiate(flags[i]);
-            flag.transform.position = spawnPositions[i];
-        }*/
+        lobbyId = Constants.lobbyId;
 
         InvokeRepeating("SyncFlags", 0, 0.5f);
     }
@@ -37,23 +28,37 @@ public class FlagSpawn : MonoBehaviour
         StartCoroutine(ManageFlags());
     }
 
-    IEnumerator ManageFlags() // *** under construction **
+    bool Includes(int[] serverFlags, int item)
     {
-        for (int i = 0; i < EnemyObjectData.otherPlayerObjects.Length; i++)
+        for (int i = 0; i < serverFlags.Length; i++)
         {
-            if (EnemyObjectData.otherPlayerObjects[i] != null)
+            if (serverFlags[i] == item)
             {
-                int userId = EnemyObjectData.otherPlayerObjects[i].enemyId;
-                string baseURL = "http://rest-swing-api.herokuapp.com";
-                string api_url = baseURL + "/getPosition?userId=" + userId;
-                UnityWebRequest request = UnityWebRequest.Get(api_url);
+                return true;
+            }
+        }
 
-                yield return request.SendWebRequest();
+        return false;
+    }
 
-                string json = request.downloadHandler.text;
-                PlayerPosition playerPosition = JsonUtility.FromJson<PlayerPosition>(json);
-                EnemyObjectData.otherPlayerObjects[i].setOtherPlayerPrefab(new Vector3(playerPosition.positionX,
-                                                                            playerPosition.positionY, playerPosition.positionZ));
+    IEnumerator ManageFlags()
+    {
+        string baseURL = "http://rest-swing-api.herokuapp.com";
+        string api_url = baseURL + "/getLobbyFlags?lobbyId=" + lobbyId;
+        UnityWebRequest request = UnityWebRequest.Get(api_url);
+        yield return request.SendWebRequest();
+        string json = request.downloadHandler.text;
+        LobbyFlagData flagData = JsonUtility.FromJson<LobbyFlagData>(json);
+        int[] serverFlags = flagData.flagsAvailable;
+
+        for (int i = 0; i < flags.Length; i++)
+        {
+            if (Includes(serverFlags, flags[i].GetComponent<Item>().flagNum))
+            {
+                flags[i].SetActive(true);
+            } else
+            {
+                flags[i].SetActive(false);
             }
         }
 
