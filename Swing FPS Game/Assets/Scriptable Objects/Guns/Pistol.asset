@@ -20,4 +20,7 @@ MonoBehaviour:
   minDamage: 5
   maxDamage: 150
   maximumRange: 50
-  ImpactParticleSystem: {fileID: 3631556063007445644, guid: 966519976ebd1e3428ae9a780403a1c7, type: 3}
+  ImpactParticleSystem: {fileID: 100002, guid: 99c73c92ac40473459640b165473206f, type: 3}
+  weaponHandler: {fileID: 0}
+  shoot: {fileID: 166125106244728442, guid: f31acebede47fca42a32102b885cbdfb, type: 3}
+  reload: {fileID: 3216317250487812757, guid: 28ef9f53354e33041bbc290b6b67c159, type: 3}
