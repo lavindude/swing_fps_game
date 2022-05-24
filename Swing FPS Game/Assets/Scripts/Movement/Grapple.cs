@@ -7,6 +7,7 @@ public class Grapple : MonoBehaviour
     [SerializeField] Camera cam;
     [SerializeField] Transform grappleBarrel;
     [SerializeField] LineRenderer lr;
+    public LayerMask borderMask;
 
     public bool isGrappling;
 
@@ -44,7 +45,7 @@ public class Grapple : MonoBehaviour
 
         if (Input.GetMouseButtonDown(2))
         {
-            if (Physics.Raycast(cam.transform.position, cam.transform.forward, out hit) && grapplesLeft > 0)
+            if (Physics.Raycast(cam.transform.position, cam.transform.forward, out hit, Mathf.Infinity, borderMask) && grapplesLeft > 0)
             {
                 grapplePoint = hit.point;
                 maxDistance = Vector3.Distance(transform.position, hit.point);
