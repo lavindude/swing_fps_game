@@ -42,6 +42,11 @@ public class Inventory : MonoBehaviour
         Display();
         gunsHeld = weaponHandler.guns.Count;
         UpdateGunImages();
+
+        if (inventory.Count < 5)
+        {
+            gameObject.GetComponent<PlayerController>().wonGame = false;
+        }
     }
 
     private void Awake()

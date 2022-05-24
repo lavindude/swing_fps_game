@@ -6,10 +6,12 @@ using UnityEngine.Networking;
 
 public class PlayerController : MonoBehaviour
 {
+    public bool wonGame;
+    public TextMeshProUGUI finishGameText;
+
     float playerHeight = 2f;
 
     public float playerHealth;
-    public TextMeshProUGUI healthText;
 
     [SerializeField] Grapple grapple;
 
@@ -101,7 +103,14 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        //healthText.text = playerHealth + " / " + 100;
+        if (wonGame)
+        {
+            finishGameText.text = "Player " + Constants.playerId + " Wins";
+        }
+        else
+        {
+            finishGameText.text = "";
+        }
 
         isGrounded = Physics.CheckSphere(transform.position - new Vector3(0, 1, 0), groundDistance, groundMask);
 
