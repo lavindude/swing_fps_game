@@ -193,6 +193,12 @@ public class PlayerController : MonoBehaviour
 
         string json = request.downloadHandler.text;
         RespawnData respawnData = JsonUtility.FromJson<RespawnData>(json);
+
+        if (playerHealth != respawnData.health)
+        {
+            playerHealth = respawnData.health;
+        }
+
         if (respawnData.health <= 0)
         {
             gameObject.GetComponent<Inventory>().inventory.Clear();
