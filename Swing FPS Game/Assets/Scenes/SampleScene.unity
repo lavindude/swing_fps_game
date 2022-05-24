@@ -301,7 +301,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc6b91e6347ca0e4eb6c2a66d88aa95e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 1429525915}
 --- !u!114 &94948183
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1381,7 +1380,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc6b91e6347ca0e4eb6c2a66d88aa95e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 1429525915}
 --- !u!114 &521923964
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1620,6 +1618,8 @@ GameObject:
   m_Component:
   - component: {fileID: 553371106}
   - component: {fileID: 553371107}
+  - component: {fileID: 553371109}
+  - component: {fileID: 553371108}
   m_Layer: 0
   m_Name: Zen Block
   m_TagString: Untagged
@@ -1652,6 +1652,31 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dc6b91e6347ca0e4eb6c2a66d88aa95e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &553371108
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 553371105}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 930a32039bf5580429a4c3a63144674d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 0}
+--- !u!114 &553371109
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 553371105}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 930a32039bf5580429a4c3a63144674d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 1429525915}
@@ -3436,6 +3461,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1113908280}
   - component: {fileID: 1113908279}
+  - component: {fileID: 1113908281}
   m_Layer: 0
   m_Name: Slums
   m_TagString: Untagged
@@ -3455,7 +3481,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc6b91e6347ca0e4eb6c2a66d88aa95e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 1429525915}
 --- !u!4 &1113908280
 Transform:
   m_ObjectHideFlags: 0
@@ -3471,6 +3496,19 @@ Transform:
   m_Father: {fileID: 1547592590}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: -90, y: -90, z: 90}
+--- !u!114 &1113908281
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1113908278}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 930a32039bf5580429a4c3a63144674d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 1429525915}
 --- !u!1001 &1120728157
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3631,7 +3669,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1229708293}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dc6b91e6347ca0e4eb6c2a66d88aa95e, type: 3}
+  m_Script: {fileID: 11500000, guid: 930a32039bf5580429a4c3a63144674d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 1429525915}
@@ -3937,7 +3975,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc6b91e6347ca0e4eb6c2a66d88aa95e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 1429525915}
 --- !u!114 &1351705375
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4415,7 +4452,7 @@ MonoBehaviour:
   gunImages:
   - {fileID: 21300000, guid: e08872790129d62409c20b2828bd8ac7, type: 3}
   - {fileID: 21300000, guid: 3666915c381c5d849abd5adb36c7a173, type: 3}
-  emptyGunImage: {fileID: 21300000, guid: 24bf0c716d0ced1418c065f892ce5d2b, type: 3}
+  emptyGunImage: {fileID: 21300000, guid: 0b4b44754ec54bb4689dd5f783574ef9, type: 3}
   gun1Image: {fileID: 154200895}
   gun2Image: {fileID: 1007097415}
   gunsHeld: 0
@@ -4595,7 +4632,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc6b91e6347ca0e4eb6c2a66d88aa95e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 1429525915}
 --- !u!4 &1546378438 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6191280025141845896, guid: 5adbd4e3733ef904a8268e14af6fec45, type: 3}
@@ -4718,7 +4754,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc6b91e6347ca0e4eb6c2a66d88aa95e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 1429525915}
 --- !u!1 &1598351911
 GameObject:
   m_ObjectHideFlags: 0
@@ -5190,6 +5225,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1712400353}
   - component: {fileID: 1712400354}
+  - component: {fileID: 1712400355}
   m_Layer: 0
   m_Name: Cyber City
   m_TagString: Untagged
@@ -5222,6 +5258,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dc6b91e6347ca0e4eb6c2a66d88aa95e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1712400355
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1712400352}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 930a32039bf5580429a4c3a63144674d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 1429525915}
@@ -5565,7 +5613,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc6b91e6347ca0e4eb6c2a66d88aa95e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 1429525915}
 --- !u!114 &1854272912
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5821,6 +5868,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1913009383}
   - component: {fileID: 1913009384}
+  - component: {fileID: 1913009385}
   m_Layer: 0
   m_Name: Park Plaza
   m_TagString: Untagged
@@ -5853,6 +5901,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dc6b91e6347ca0e4eb6c2a66d88aa95e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1913009385
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1913009382}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 930a32039bf5580429a4c3a63144674d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 1429525915}
@@ -6151,7 +6211,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc6b91e6347ca0e4eb6c2a66d88aa95e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 1429525915}
 --- !u!114 &2003915746
 MonoBehaviour:
   m_ObjectHideFlags: 0
