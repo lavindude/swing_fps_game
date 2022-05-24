@@ -93,10 +93,8 @@ public class PlayerController : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
 
-        // hard coded values ---------------
-        playerId = 1;
-        lobbyId = 1;
-        // hard coded values ---------------
+        playerId = Constants.playerId;
+        lobbyId = Constants.lobbyId;
 
         APIHelper.SyncLocation(playerId, lobbyId, transform.position.x, transform.position.y, transform.position.z);
     }
@@ -197,6 +195,7 @@ public class PlayerController : MonoBehaviour
         RespawnData respawnData = JsonUtility.FromJson<RespawnData>(json);
         if (respawnData.health <= 0)
         {
+            gameObject.GetComponent<Inventory>().inventory.Clear();
             transform.position = new Vector3(respawnData.startX, respawnData.startY, respawnData.startZ);
             APIHelper.SendPlayerDeathReceived(playerId);
         }
