@@ -181,7 +181,7 @@ public class Inventory : MonoBehaviour
     {
         if (weaponHandler.guns.Count > 0)
         {
-            ammoText.text = weaponHandler.currentGun.ammoAmount + " / " + weaponHandler.currentGun.maxAmmo;
+            ammoText.text = weaponHandler.currentGun.ammoAmount + " // " + weaponHandler.currentGun.maxAmmo;
         }
         else
         {
