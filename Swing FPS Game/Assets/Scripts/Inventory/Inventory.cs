@@ -42,6 +42,11 @@ public class Inventory : MonoBehaviour
         Display();
         gunsHeld = weaponHandler.guns.Count;
         UpdateGunImages();
+
+        if (inventory.Count < 5)
+        {
+            gameObject.GetComponent<PlayerController>().wonGame = false;
+        }
     }
 
     private void Awake()
@@ -176,7 +181,7 @@ public class Inventory : MonoBehaviour
     {
         if (weaponHandler.guns.Count > 0)
         {
-            ammoText.text = weaponHandler.currentGun.ammoAmount + " / " + weaponHandler.currentGun.maxAmmo;
+            ammoText.text = weaponHandler.currentGun.ammoAmount + " // " + weaponHandler.currentGun.maxAmmo;
         }
         else
         {

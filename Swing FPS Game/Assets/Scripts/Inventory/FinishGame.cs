@@ -11,7 +11,12 @@ public class FinishGame : MonoBehaviour
     {
         if (player.GetComponent<Inventory>().inventory.Count == flagsNum)
         {
-            Debug.Log("Finished Game");
+            player.GetComponent<PlayerController>().wonGame = true;
         }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        player.GetComponent<PlayerController>().wonGame = false;
     }
 }
