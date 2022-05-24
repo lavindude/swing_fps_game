@@ -101,8 +101,6 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        healthText.text = playerHealth + " / " + 100;
-
         isGrounded = Physics.CheckSphere(transform.position - new Vector3(0, 1, 0), groundDistance, groundMask);
 
         MyInput();
@@ -198,7 +196,6 @@ public class PlayerController : MonoBehaviour
         if (respawnData.health <= 0)
         {
             gameObject.GetComponent<Inventory>().inventory.Clear();
-            gameObject.GetComponent<Inventory>().resetFlagImages();
             transform.position = new Vector3(respawnData.startX, respawnData.startY, respawnData.startZ);
             APIHelper.SendPlayerDeathReceived(playerId);
         }
