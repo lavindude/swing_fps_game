@@ -16,10 +16,6 @@ public class Gun : ScriptableObject
     public int maxDamage;
     public float maximumRange;
     [SerializeField] public GameObject ImpactParticleSystem;
-    public WeaponHandler weaponHandler;
-
-    public AudioSource shoot;
-    public AudioSource reload;
 
     public virtual void OnLeftMouseDown(Transform cameraPos) { }
     public virtual void OnLeftMouseHold(Transform cameraPos) { }
@@ -29,9 +25,6 @@ public class Gun : ScriptableObject
     {
         if (ammoAmount > 0)
         {
-            weaponHandler.muzzleFlash.GetComponent<ParticleSystem>().Play();
-            shoot.Play();
-
             RaycastHit whatIHit;
             if (Physics.Raycast(cameraPos.position, cameraPos.transform.forward, out whatIHit, Mathf.Infinity))
             {

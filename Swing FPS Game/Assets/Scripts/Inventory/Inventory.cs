@@ -31,11 +31,6 @@ public class Inventory : MonoBehaviour
     public Image gun2Image;
     public int gunsHeld;
 
-    public GameObject muzzleFlash;
-
-    public AudioSource shoot;
-    public AudioSource reload;
-
     void Update()
     {
         Detect();
@@ -117,9 +112,6 @@ public class Inventory : MonoBehaviour
             if (item.gunNum == 0)
             {
                 man = ScriptableObject.CreateInstance<Manual>();
-                man.weaponHandler = weaponHandler;
-                man.shoot = shoot;
-                man.reload = reload;
                 man.gunId = guns[item.gunNum].gunId;
                 man.gunName = guns[item.gunNum].gunName;
                 man.gunPrefab = guns[item.gunNum].gunPrefab;
@@ -134,9 +126,6 @@ public class Inventory : MonoBehaviour
             else
             {
                 auto = ScriptableObject.CreateInstance<Automatic>();
-                auto.weaponHandler = weaponHandler;
-                auto.shoot = shoot;
-                auto.reload = reload;
                 auto.gunId = guns[item.gunNum].gunId;
                 auto.gunName = guns[item.gunNum].gunName;
                 auto.gunPrefab = guns[item.gunNum].gunPrefab;
@@ -189,14 +178,6 @@ public class Inventory : MonoBehaviour
     void ShowFlag()
     {
         flagImages[inventory.Count - 1].enabled = true;
-    }
-
-    public void resetFlagImages()
-    {
-        for (int i = 0; i < flagImages.Count; i++)
-        {
-            flagImages[i].enabled = false;
-        }
     }
 
     void UpdateGunImages()

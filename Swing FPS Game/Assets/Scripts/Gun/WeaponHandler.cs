@@ -9,7 +9,6 @@ public class WeaponHandler : MonoBehaviour
     public Gun currentGun;
     private Transform cameraTransform;
     private GameObject currentGunPrefab;
-    public GameObject muzzleFlash;
     public int currentGunNum;
 
     private void Start()
@@ -48,10 +47,7 @@ public class WeaponHandler : MonoBehaviour
             currentGun = guns[1];
             currentGunNum = 1;
         }
-
-        muzzleFlash = currentGunPrefab.GetComponent<GunValues>().muzzleFlash;
     }
-
     private void CheckForShooting()
     {
         if (Input.GetMouseButtonDown(0))
@@ -88,7 +84,6 @@ public class WeaponHandler : MonoBehaviour
             if (currentGun.ammoAmount != currentGun.maxAmmo)
             {
                 currentGun.ammoAmount = currentGun.maxAmmo;
-                currentGun.reload.Play();
             }
         }
     }
