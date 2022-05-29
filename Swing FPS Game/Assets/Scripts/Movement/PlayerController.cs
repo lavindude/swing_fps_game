@@ -103,15 +103,6 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        if (wonGame)
-        {
-            finishGameText.text = "Player " + Constants.playerId + " Wins";
-        }
-        else
-        {
-            finishGameText.text = "";
-        }
-
         isGrounded = Physics.CheckSphere(transform.position - new Vector3(0, 1, 0), groundDistance, groundMask);
 
         MyInput();
@@ -129,6 +120,7 @@ public class PlayerController : MonoBehaviour
         Slide();
         Crouch();
         SyncPlayer();
+        PlayerWon();
 
         if (isCrouching || isSliding)
         {
@@ -138,6 +130,11 @@ public class PlayerController : MonoBehaviour
         {
             cc.height = 2f;
         }
+    }
+
+    void PlayerWon()
+    {
+        StartCoroutine(CheckPlayerWon());
     }
 
     void SyncPlayer()
@@ -210,6 +207,27 @@ public class PlayerController : MonoBehaviour
             gameObject.GetComponent<Inventory>().resetFlagImages();
             transform.position = new Vector3(respawnData.startX, respawnData.startY, respawnData.startZ);
             APIHelper.SendPlayerDeathReceived(playerId);
+        }
+
+        yield return null;
+    }
+
+    IEnumerator CheckPlayerWon()
+    {
+        string baseURL = "http://rest-swing-api.herokuapp.com";
+        string api_url = baseURL + "/getPlayerWon?lobbyId=" + lobbyId;
+        UnityWebRequest request = UnityWebRequest.Get(api_url);
+
+        yield return request.SendWebRequest();
+
+        string json = request.downloadHandler.text;
+        PlayerWonData playerWonData = JsonUtility.FromJson<PlayerWonData>(json);
+        if (playerWonData.playerWon != -1)
+        {
+            finishGameText.text = "Player " + playerWonData.playerWon + " Wins";
+        } else
+        {
+            finishGameText.text = "";
         }
 
         yield return null;

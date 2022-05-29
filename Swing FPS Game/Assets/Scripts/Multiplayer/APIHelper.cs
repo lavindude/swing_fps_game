@@ -40,4 +40,18 @@ public static class APIHelper
         UnityWebRequest request = UnityWebRequest.Get(api_url);
         request.SendWebRequest();
     }
+
+    public static void SendPlayerWon(int playerId, int lobbyId)
+    {
+        string api_url = baseURL + "/sendPlayerWon?playerId=" + playerId + "&lobbyId=" + lobbyId;
+        UnityWebRequest request = UnityWebRequest.Get(api_url);
+        request.SendWebRequest();
+    }
+
+    public static void ResetFlagsAndPlayerWon(int lobbyId)
+    {
+        string api_url = baseURL + "/resetFlagsAndPlayerWon?lobbyId=" + lobbyId;
+        UnityWebRequest request = UnityWebRequest.Get(api_url);
+        request.SendWebRequest();
+    }
 }
