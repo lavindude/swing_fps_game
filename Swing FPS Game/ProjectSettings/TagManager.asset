@@ -6,6 +6,9 @@ TagManager:
   tags:
   - NoParticle
   - FxTemporaire
+  - Footsteps/Metalic
+  - Footsteps/Asphalt
+  - Footsteps/Grassy
   layers:
   - Default
   - TransparentFX

@@ -7,6 +7,7 @@ public class Grapple : MonoBehaviour
     [SerializeField] Camera cam;
     [SerializeField] Transform grappleBarrel;
     [SerializeField] LineRenderer lr;
+    [SerializeField] private AudioClip[] grappleClips = default;
     public LayerMask borderMask;
 
     public bool isGrappling;
@@ -21,7 +22,7 @@ public class Grapple : MonoBehaviour
     public float damper;
     public float grapplePullForce;
     public float grapplesLeft;
-
+    [SerializeField] private AudioSource grappleAudio = default;
     // Start is called before the first frame update
     void Start()
     {
@@ -47,6 +48,7 @@ public class Grapple : MonoBehaviour
         {
             if (Physics.Raycast(cam.transform.position, cam.transform.forward, out hit, Mathf.Infinity, borderMask) && grapplesLeft > 0)
             {
+                grappleAudio.PlayOneShot(grappleClips[Random.Range(0, grappleClips.Length - 1)]);
                 grapplePoint = hit.point;
                 maxDistance = Vector3.Distance(transform.position, hit.point);
                 StartGrapple();

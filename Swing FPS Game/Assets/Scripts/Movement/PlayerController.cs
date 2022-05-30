@@ -14,6 +14,7 @@ public class PlayerController : MonoBehaviour
     public float playerHealth;
 
     [SerializeField] Grapple grapple;
+    [SerializeField] private bool useFootsteps = true;
 
     [Header("Movement")]
     public float moveSpeed;
@@ -56,9 +57,21 @@ public class PlayerController : MonoBehaviour
     float groundDistance = 0.4f;
     [SerializeField] LayerMask groundMask;
 
+    [Header("Footstep Parameters")]
+    [SerializeField] private float baseStepSpeed = 0.8f;
+    [SerializeField] private float crouchStepMultiplier = 1.5f;
+    [SerializeField] private float sprintStepMultiplier = 0.6f;
+    [SerializeField] private AudioSource footstepAudioSource = default;
+    [SerializeField] private AudioSource swingingAudioSource = default;
+    [SerializeField] private AudioClip[] asphaltClips = default;
+    [SerializeField] private AudioClip[] metalicClips = default;
+    [SerializeField] private AudioClip[] grassClips = default;
+    private float footstepTimer = 0;
+    private float GetCurrentOffset => isCrouching ? baseStepSpeed * crouchStepMultiplier : isSprinting ? baseStepSpeed * sprintStepMultiplier : baseStepSpeed;
+
     Vector3 moveDirection;
     Vector3 slopeMoveDirection;
-
+    Camera cam;
 
     Rigidbody rb;
     [SerializeField] CapsuleCollider cc;
@@ -94,6 +107,7 @@ public class PlayerController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
+        cam = GetComponentInChildren<Camera>();
 
         playerId = Constants.playerId;
         lobbyId = Constants.lobbyId;
@@ -103,6 +117,7 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
+        UpdateSound();
         isGrounded = Physics.CheckSphere(transform.position - new Vector3(0, 1, 0), groundDistance, groundMask);
 
         MyInput();
@@ -130,6 +145,13 @@ public class PlayerController : MonoBehaviour
         {
             cc.height = 2f;
         }
+
+        if (useFootsteps)
+        {
+            HandleFootsteps();
+        }
+        
+
     }
 
     void PlayerWon()
@@ -309,6 +331,78 @@ public class PlayerController : MonoBehaviour
         {
             isSliding = false;
         }
+    }
+
+    void HandleFootsteps()
+    {
+        if (!isGrounded)
+        {
+            if (!swingingAudioSource.isPlaying)
+            {
+                swingingAudioSource.Play();
+            }
+            else
+            {
+                return;
+            }
+        }
+        else
+        {
+            StartCoroutine(FadeOut(swingingAudioSource, 5));
+
+        }
+        if (rb.velocity.magnitude <= 0.5)
+        {
+            return;
+        }
+        if (Mathf.Abs(Input.GetAxis("Horizontal")) <= 0.9f && Mathf.Abs(Input.GetAxis("Vertical")) <= 0.9f)
+        {
+            return;
+        }
+
+        footstepTimer -= Time.deltaTime;
+
+        if (footstepTimer <= 0)
+        {
+            if(Physics.Raycast(cam.transform.position, Vector3.down, out RaycastHit hit, 3))
+            {
+                switch (hit.collider.tag)
+                {
+                    case "Footsteps/Metalic":
+                        footstepAudioSource.PlayOneShot(metalicClips[Random.Range(0, metalicClips.Length - 1)]);
+                        break;
+                    case "Footsteps/Asphalt":
+                        footstepAudioSource.PlayOneShot(asphaltClips[Random.Range(0, asphaltClips.Length - 1)]);
+                        break;
+                    case "Footsteps/Grassy":
+                        footstepAudioSource.PlayOneShot(grassClips[Random.Range(0, grassClips.Length - 1)]);
+                        break;
+                    default:
+                        footstepAudioSource.PlayOneShot(asphaltClips[Random.Range(0, asphaltClips.Length - 1)]);
+                        break;
+                }
+            }
+
+            footstepTimer = GetCurrentOffset;
+        }
+    }
+    void UpdateSound()
+    {
+        swingingAudioSource.volume = Mathf.InverseLerp(20.0f, 60.0f, rb.velocity.magnitude);
+    }
+    public static IEnumerator FadeOut(AudioSource audioSource, float FadeTime)
+    {
+        float startVolume = audioSource.volume;
+
+        while (audioSource.volume > 0)
+        {
+            audioSource.volume -= startVolume * Time.deltaTime / FadeTime;
+
+            yield return null;
+        }
+
+        audioSource.Stop();
+        audioSource.volume = startVolume;
     }
 }
              
