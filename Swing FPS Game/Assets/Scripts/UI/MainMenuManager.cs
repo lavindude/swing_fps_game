@@ -87,6 +87,7 @@ public class MainMenuManager : MonoBehaviour
         level2Button.onClick.AddListener(ToTutorial2);
         level3Button.onClick.AddListener(ToTutorial3);
         level4Button.onClick.AddListener(ToTutorial4);
+        toMultiplayerButton.onClick.AddListener(ToMultiplayer);
         StartCoroutine(PressAnyButtonAnim());
     }
 
