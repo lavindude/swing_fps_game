@@ -200,7 +200,7 @@ public class MainMenuManager : MonoBehaviour
     {
         menuState = 1;
 
-        yield return new WaitForSeconds(0.1f);
+        yield return new WaitForSeconds(0.01f);
         playAnim.SetBool("Active", true);
         optionsAnim.SetBool("Active", true);
     }
@@ -209,7 +209,7 @@ public class MainMenuManager : MonoBehaviour
     {
         menuState = 2;
 
-        yield return new WaitForSeconds(1.0f);
+        yield return new WaitForSeconds(0.5f);
         multiplayerAnim.SetBool("Active", true);
         tutorialsAnim.SetBool("Active", true);
         backAnim.SetBool("Active", true);
@@ -221,7 +221,7 @@ public class MainMenuManager : MonoBehaviour
 
         multiplayerAnim.SetBool("Active", false);
         tutorialsAnim.SetBool("Active", false);
-        yield return new WaitForSeconds(1.0f);
+        yield return new WaitForSeconds(0.5f);
         level1Anim.SetBool("Active", true);
         level2Anim.SetBool("Active", true);
         level3Anim.SetBool("Active", true);
@@ -234,7 +234,7 @@ public class MainMenuManager : MonoBehaviour
 
         multiplayerAnim.SetBool("Active", false);
         tutorialsAnim.SetBool("Active", false);
-        yield return new WaitForSeconds(1.0f);
+        yield return new WaitForSeconds(0.5f);
         playerNameAnim.SetBool("Active", true);
         playerNameTextAnim.SetBool("Active", true);
         playerIDAnim.SetBool("Active", true);
