@@ -30,7 +30,7 @@ public class Gun : ScriptableObject
         if (ammoAmount > 0)
         {
             weaponHandler.muzzleFlash.GetComponent<ParticleSystem>().Play();
-            shoot.Play();
+            shoot.PlayOneShot(shoot.clip);
 
             RaycastHit whatIHit;
             if (Physics.Raycast(cameraPos.position, cameraPos.transform.forward, out whatIHit, Mathf.Infinity))
