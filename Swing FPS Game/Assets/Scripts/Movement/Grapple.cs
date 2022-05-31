@@ -5,7 +5,7 @@ using UnityEngine;
 public class Grapple : MonoBehaviour
 {
     [SerializeField] Camera cam;
-    [SerializeField] Transform grappleBarrel;
+    public Transform grappleBarrel;
     [SerializeField] LineRenderer lr;
     [SerializeField] private AudioClip[] grappleClips = default;
     public LayerMask borderMask;
@@ -16,7 +16,7 @@ public class Grapple : MonoBehaviour
 
     [Header("Grapple Setting")]
     SpringJoint joint;
-    Vector3 grapplePoint;
+    public Vector3 grapplePoint;
     float maxDistance;
     public float spring;
     public float damper;
@@ -33,11 +33,6 @@ public class Grapple : MonoBehaviour
     void Update()
     {
         DetectGrapple();
-    }
-
-    void LateUpdate()
-    {
-        updateLr();
     }
 
     void DetectGrapple()
@@ -88,19 +83,5 @@ public class Grapple : MonoBehaviour
         isGrappling = false;
         Destroy(joint);
         joint = null;
-    }
-
-    void updateLr()
-    {
-        if (isGrappling)
-        {
-            lr.positionCount = 2;
-            lr.SetPosition(0, grapplePoint);
-            lr.SetPosition(1, grappleBarrel.position);
-        }
-        else
-        {
-            lr.positionCount = 0;
-        }
     }
 }

@@ -40,7 +40,7 @@ public class GameManager : MonoBehaviour
             EnemyObjectData.fillUpEnemyArray(newEnemy, otherPlayerIds[i], i);
         }
 
-        InvokeRepeating("SyncOtherPlayers", 0, 0.04f);
+        InvokeRepeating("SyncOtherPlayers", 0, 0.01f);
     }
 
 // Update is called once per frame
