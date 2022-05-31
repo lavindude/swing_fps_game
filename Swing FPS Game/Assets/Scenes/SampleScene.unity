@@ -10013,11 +10013,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6367314311482220848, guid: 5441dac5df8cf634588f8f859e7a7f95, type: 3}
       propertyPath: grapplePullForce
-<<<<<<< HEAD
       value: 35
-=======
-      value: 30
->>>>>>> develop
       objectReference: {fileID: 0}
     - target: {fileID: 6367314311482220848, guid: 5441dac5df8cf634588f8f859e7a7f95, type: 3}
       propertyPath: borderMask.m_Bits
