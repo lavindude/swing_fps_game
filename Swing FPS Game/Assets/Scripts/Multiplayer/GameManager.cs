@@ -43,8 +43,8 @@ public class GameManager : MonoBehaviour
         InvokeRepeating("SyncOtherPlayers", 0, 0.04f);
     }
 
-    // Update is called once per frame
-    void Update()
+// Update is called once per frame
+void Update()
     {
         //SyncOtherPlayers();
     }

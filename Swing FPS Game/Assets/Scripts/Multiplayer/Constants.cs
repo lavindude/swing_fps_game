@@ -6,5 +6,6 @@ public static class Constants
        For now, they are hard coded. */
     public static int playerId = 1;
     public static int lobbyId = 1;
-    public static int[] otherPlayerIds = new int[] { 2, 3, 4 };
+    public static int[] otherPlayerIds = new int[3];
+    public static int maxPlayers = 4;
 }
