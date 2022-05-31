@@ -161,6 +161,20 @@ public class MainMenuManager : MonoBehaviour
 
     void ToMultiplayer()
     {
+        Constants.playerId = pID;
+        Constants.lobbyId = lID;
+
+        int curId = 0;
+        for (int i = 1; i <= Constants.maxPlayers; i++)
+        {
+            if (i != pID)
+            {
+                Constants.otherPlayerIds[curId] = i;
+                curId++;
+            }
+
+        }
+
         SceneManager.LoadScene("SampleScene");
     }
 
