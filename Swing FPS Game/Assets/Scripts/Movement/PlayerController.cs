@@ -60,7 +60,7 @@ public class PlayerController : MonoBehaviour
     [Header("Footstep Parameters")]
     [SerializeField] private float baseStepSpeed = 0.8f;
     [SerializeField] private float crouchStepMultiplier = 1.5f;
-    [SerializeField] private float sprintStepMultiplier = 0.6f;
+    [SerializeField] private float sprintStepMultiplier = 0.1f;
     [SerializeField] private AudioSource footstepAudioSource = default;
     [SerializeField] private AudioSource swingingAudioSource = default;
     [SerializeField] private AudioClip[] asphaltClips = default;
