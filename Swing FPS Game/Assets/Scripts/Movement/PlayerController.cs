@@ -10,6 +10,8 @@ public class PlayerController : MonoBehaviour
     public TextMeshProUGUI chestOpenText;
     public TextMeshProUGUI chestCloseText;
 
+    public TextMeshProUGUI playerHealthText;
+
     public bool wonGame;
     public TextMeshProUGUI finishGameText;
 
@@ -154,8 +156,8 @@ public class PlayerController : MonoBehaviour
         {
             HandleFootsteps();
         }
-        
 
+        playerHealthText.text = (playerHealth / 3) + " / " + 100;
     }
 
     void PlayerWon()
