@@ -157,7 +157,7 @@ public class PlayerController : MonoBehaviour
             HandleFootsteps();
         }
 
-        playerHealthText.text = (playerHealth / 3) + " / " + 100;
+        playerHealthText.text = Mathf.Round(playerHealth / 3) + " / " + 100;
     }
 
     void PlayerWon()
