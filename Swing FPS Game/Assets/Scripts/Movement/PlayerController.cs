@@ -18,6 +18,8 @@ public class PlayerController : MonoBehaviour
     float playerHeight = 2f;
 
     public float playerHealth;
+    public int oldPlayerHealth;
+    public sprite damageSprite;
 
     [SerializeField] Grapple grapple;
     [SerializeField] private bool useFootsteps = true;
@@ -142,6 +144,7 @@ public class PlayerController : MonoBehaviour
         Crouch();
         SyncPlayer();
         PlayerWon();
+        PlayerDamage();
 
         if (isCrouching || isSliding)
         {
@@ -171,6 +174,11 @@ public class PlayerController : MonoBehaviour
         StartCoroutine(CheckHealth());
     }
 
+    void PlayerDamage()
+    {
+        damageSprite.enabled = true;
+        
+    }
     void ControlDrag()
     {
         if (isGrounded)
