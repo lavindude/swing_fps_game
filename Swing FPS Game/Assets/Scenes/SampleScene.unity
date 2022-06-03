@@ -1510,7 +1510,7 @@ Transform:
   - {fileID: 1122035599}
   - {fileID: 874494075}
   m_Father: {fileID: 0}
-  m_RootOrder: 17
+  m_RootOrder: 16
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &154200892
 GameObject:
@@ -6214,53 +6214,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3068b2ff00d560242837310174759df9, type: 3}
---- !u!1 &745409405
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 745409407}
-  - component: {fileID: 745409406}
-  m_Layer: 0
-  m_Name: ChestManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &745409406
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 745409405}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 334bc1977ee844240b4784e0ed0c817c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  chestItems:
-  - {fileID: 1796912170591731791, guid: 5adbd4e3733ef904a8268e14af6fec45, type: 3}
-  - {fileID: 3497218789621711890, guid: f04ea531e7a1d5141b261561c9b78cd1, type: 3}
-  - {fileID: 2919159757110522835, guid: dfc6acf245a4e7b46991804ba327c012, type: 3}
---- !u!4 &745409407
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 745409405}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 662.03723, y: 519.3149, z: -1525.4952}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 14
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &746471434
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7533,7 +7486,7 @@ Transform:
   - {fileID: 170106330}
   - {fileID: 144099421}
   m_Father: {fileID: 0}
-  m_RootOrder: 16
+  m_RootOrder: 15
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &866973485
 PrefabInstance:
@@ -8148,7 +8101,7 @@ Transform:
   - {fileID: 373733878}
   - {fileID: 2123540025}
   m_Father: {fileID: 0}
-  m_RootOrder: 19
+  m_RootOrder: 18
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &923276212 stripped
 Transform:
@@ -11709,7 +11662,7 @@ Transform:
   - {fileID: 523552194}
   - {fileID: 172882133}
   m_Father: {fileID: 0}
-  m_RootOrder: 18
+  m_RootOrder: 17
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1383614258
 PrefabInstance:
@@ -12532,6 +12485,29 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &1429525921
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1429525915}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 334bc1977ee844240b4784e0ed0c817c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  chestOpenText: {fileID: 1157646222}
+  chestCloseText: {fileID: 1366257313}
+  railwayChests: {fileID: 1574395812}
+  cityChests: {fileID: 865943161}
+  slumChests: {fileID: 1380596279}
+  zenChests: {fileID: 919523407}
+  parkChests: {fileID: 152649623}
+  chestItems:
+  - {fileID: 1796912170591731791, guid: 5adbd4e3733ef904a8268e14af6fec45, type: 3}
+  - {fileID: 3497218789621711890, guid: f04ea531e7a1d5141b261561c9b78cd1, type: 3}
+  - {fileID: 2919159757110522835, guid: dfc6acf245a4e7b46991804ba327c012, type: 3}
 --- !u!4 &1429525923 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6367314311482220844, guid: 5441dac5df8cf634588f8f859e7a7f95, type: 3}
@@ -13803,7 +13779,7 @@ Transform:
   - {fileID: 527396107}
   - {fileID: 1779125161}
   m_Father: {fileID: 0}
-  m_RootOrder: 15
+  m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1591461251
 PrefabInstance:

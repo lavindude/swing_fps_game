@@ -1,30 +1,116 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class ChestManager : MonoBehaviour
 {
+    public TextMeshProUGUI chestOpenText;
+    public TextMeshProUGUI chestCloseText;
+
+    public GameObject railwayChests;
+    public GameObject cityChests;
+    public GameObject slumChests;
+    public GameObject zenChests;
+    public GameObject parkChests;
+
+    private int maxRailway = 10;
+    private int maxCity = 12;
+    private int maxSlum = 13;
+    private int maxZen = 7;
+    private int maxPark = 8;
+
     public GameObject[] chestItems;
-    private GameObject player;
-    private GameObject playerCapsule;
     private GameObject[] chests;
     private GameObject chest;
     private Animator chestAnim;
-    private PlayerController pc;
     // Start is called before the first frame update
     void Start()
     {
-        chests = GameObject.FindGameObjectsWithTag("Chest");
+        RandomizeChestLocations();
     }
 
     // Update is called once per frame
     void Update()
     {
-        player = GameObject.FindWithTag("Player");
-        playerCapsule = player.transform.Find("Capsule").gameObject;
-        pc = player.GetComponent<PlayerController>();
-
         ChestOpener();
+    }
+
+    void RandomizeChestLocations()
+    {
+        int currChest;
+
+        for (int i = 0; i < maxRailway; i++)
+        {
+            currChest = Random.Range(0, railwayChests.transform.childCount);
+
+            if(railwayChests.transform.GetChild(currChest).gameObject.activeSelf)
+            {
+                i--;
+            }
+            else
+            {
+                railwayChests.transform.GetChild(currChest).gameObject.SetActive(true);
+            }
+        }
+
+        for (int i = 0; i < maxCity; i++)
+        {
+            currChest = Random.Range(0, cityChests.transform.childCount);
+
+            if(cityChests.transform.GetChild(currChest).gameObject.activeSelf)
+            {
+                i--;
+            }
+            else
+            {
+                cityChests.transform.GetChild(currChest).gameObject.SetActive(true);
+            }
+        }
+
+        for (int i = 0; i < maxSlum; i++)
+        {
+            currChest = Random.Range(0, slumChests.transform.childCount);
+
+            if(slumChests.transform.GetChild(currChest).gameObject.activeSelf)
+            {
+                i--;
+            }
+            else
+            {
+                slumChests.transform.GetChild(currChest).gameObject.SetActive(true);
+            }
+        }
+
+        for (int i = 0; i < maxZen; i++)
+        {
+            currChest = Random.Range(0, zenChests.transform.childCount);
+
+            if(zenChests.transform.GetChild(currChest).gameObject.activeSelf)
+            {
+                i--;
+            }
+            else
+            {
+                zenChests.transform.GetChild(currChest).gameObject.SetActive(true);
+            }
+        }
+
+        for (int i = 0; i < maxPark; i++)
+        {
+            currChest = Random.Range(0, parkChests.transform.childCount);
+
+            if(parkChests.transform.GetChild(currChest).gameObject.activeSelf)
+            {
+                i--;
+            }
+            else
+            {
+                parkChests.transform.GetChild(currChest).gameObject.SetActive(true);
+            }
+        }
+
+        chests = GameObject.FindGameObjectsWithTag("Chest");
     }
 
     GameObject[] RandomizeItems()
@@ -94,11 +180,11 @@ public class ChestManager : MonoBehaviour
         if(chests.Length > 1)
         {
             int index = new int();
-            float prevDist = Vector3.Distance(playerCapsule.transform.position, chests[0].transform.position);
+            float prevDist = Vector3.Distance(transform.position, chests[0].transform.position);
             float currDist;
             for(int i = 1; i < chests.Length; i++)
             {
-                currDist = Vector3.Distance(playerCapsule.transform.position, chests[i].transform.position);
+                currDist = Vector3.Distance(transform.position, chests[i].transform.position);
                 if (prevDist > currDist)
                 {
                     index = i;
@@ -117,21 +203,21 @@ public class ChestManager : MonoBehaviour
 
     void PlayerChest(Animator chestAnim)
     {
-        if (Vector3.Distance(playerCapsule.transform.position, chest.transform.position) < 3)
+        if (Vector3.Distance(transform.position, chest.transform.position) < 3)
         {
             if (GetChestState(chestAnim))
             {
-                pc.SetOpenTextTrue();
+                SetOpenTextTrue();
                 if (Input.GetKeyDown(KeyCode.F))
                 {
-                    pc.SetOpenTextFalse();
+                    SetOpenTextFalse();
                     StartCoroutine(Chest(chestAnim));
                 }
             }
         }
         else
         {
-            pc.SetChestTextFalse();
+            SetChestTextFalse();
         }
     }
 
@@ -158,6 +244,32 @@ public class ChestManager : MonoBehaviour
         ChestOpen(chestAnim);
         yield return new WaitForSeconds(1.5f);
         ItemLauncher();
+    }
+
+    public void SetOpenTextTrue()
+    {
+        chestOpenText.gameObject.SetActive(true);
+    }
+
+    public void SetOpenTextFalse()
+    {
+        chestOpenText.gameObject.SetActive(false);
+    }
+
+    public void SetCloseTextTrue()
+    {
+        chestCloseText.gameObject.SetActive(true);
+    }
+
+    public void SetCloseTextFalse()
+    {
+        chestCloseText.gameObject.SetActive(false);
+    }
+
+    public void SetChestTextFalse()
+    {
+        chestOpenText.gameObject.SetActive(false);
+        chestCloseText.gameObject.SetActive(false);
     }
 }
 

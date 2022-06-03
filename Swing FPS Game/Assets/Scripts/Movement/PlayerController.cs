@@ -6,9 +6,6 @@ using UnityEngine.Networking;
 
 public class PlayerController : MonoBehaviour
 {
-    
-    public TextMeshProUGUI chestOpenText;
-    public TextMeshProUGUI chestCloseText;
 
     public bool wonGame;
     public TextMeshProUGUI finishGameText;
@@ -407,32 +404,6 @@ public class PlayerController : MonoBehaviour
 
         audioSource.Stop();
         audioSource.volume = startVolume;
-    }
-
-    public void SetOpenTextTrue()
-    {
-        chestOpenText.gameObject.SetActive(true);
-    }
-
-    public void SetOpenTextFalse()
-    {
-        chestOpenText.gameObject.SetActive(false);
-    }
-
-    public void SetCloseTextTrue()
-    {
-        chestCloseText.gameObject.SetActive(true);
-    }
-
-    public void SetCloseTextFalse()
-    {
-        chestCloseText.gameObject.SetActive(false);
-    }
-
-    public void SetChestTextFalse()
-    {
-        chestOpenText.gameObject.SetActive(false);
-        chestCloseText.gameObject.SetActive(false);
     }
 }
              
