@@ -10,6 +10,8 @@ public class PlayerController : MonoBehaviour
     public TextMeshProUGUI chestOpenText;
     public TextMeshProUGUI chestCloseText;
 
+    public TextMeshProUGUI playerHealthText;
+
     public bool wonGame;
     public TextMeshProUGUI finishGameText;
 
@@ -154,8 +156,8 @@ public class PlayerController : MonoBehaviour
         {
             HandleFootsteps();
         }
-        
 
+        playerHealthText.text = Mathf.Round(playerHealth / 3) + " / " + 100;
     }
 
     void PlayerWon()
@@ -227,6 +229,7 @@ public class PlayerController : MonoBehaviour
 
         string json = request.downloadHandler.text;
         RespawnData respawnData = JsonUtility.FromJson<RespawnData>(json);
+        playerHealth = respawnData.health;
         if (respawnData.health <= 0)
         {
             gameObject.GetComponent<Inventory>().inventory.Clear();
