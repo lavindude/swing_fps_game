@@ -12391,6 +12391,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b2c0f5f05739a143926b85cdfaabce7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  id: 0
   playerCam: {fileID: 306102265}
   maxDistance: 3
   inventory: []
@@ -21899,7 +21900,7 @@ PrefabInstance:
     - target: {fileID: 6367314311482220846, guid: 5441dac5df8cf634588f8f859e7a7f95, type: 3}
       propertyPath: playerHealthText
       value: 
-      objectReference: {fileID: 218692405}
+      objectReference: {fileID: 0}
     - target: {fileID: 6367314311482220846, guid: 5441dac5df8cf634588f8f859e7a7f95, type: 3}
       propertyPath: footstepAudioSource
       value: 
@@ -21998,7 +21999,7 @@ PrefabInstance:
       objectReference: {fileID: 869474738}
     - target: {fileID: 6367314311482220848, guid: 5441dac5df8cf634588f8f859e7a7f95, type: 3}
       propertyPath: grapplesLeft
-      value: 500
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 6367314311482220848, guid: 5441dac5df8cf634588f8f859e7a7f95, type: 3}
       propertyPath: grapplePullForce

@@ -77,7 +77,7 @@ public class Inventory : MonoBehaviour
                 }
                 else if (hit.collider.gameObject.GetComponent<Item>().type == "Grapple")
                 {
-                    grapple.grapplesLeft++;
+                    grapple.grapplesLeft += Random.Range(10, 31);
                     hit.collider.gameObject.GetComponent<Item>().PickedUp();
                 }
             }
