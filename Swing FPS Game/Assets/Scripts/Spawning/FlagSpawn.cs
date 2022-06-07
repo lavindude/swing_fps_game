@@ -14,7 +14,7 @@ public class FlagSpawn : MonoBehaviour
     {
         lobbyId = Constants.lobbyId;
 
-        InvokeRepeating("SyncFlags", 0, 0.25f);
+        InvokeRepeating("SyncFlags", 0, 0.4f);
     }
 
     // Update is called once per frame
