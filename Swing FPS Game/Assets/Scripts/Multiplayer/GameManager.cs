@@ -61,8 +61,7 @@ void Update()
             if (EnemyObjectData.otherPlayerObjects[i] != null)
             {
                 int userId = EnemyObjectData.otherPlayerObjects[i].enemyId;
-                string baseURL = "http://rest-swing-api.herokuapp.com";
-                string api_url = baseURL + "/getPosition?userId=" + userId;
+                string api_url = APIHelper.baseURL + "/getPosition?userId=" + userId;
                 UnityWebRequest request = UnityWebRequest.Get(api_url);
 
                 yield return request.SendWebRequest();

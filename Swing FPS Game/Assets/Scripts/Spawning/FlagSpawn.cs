@@ -43,8 +43,7 @@ public class FlagSpawn : MonoBehaviour
 
     IEnumerator ManageFlags()
     {
-        string baseURL = "http://rest-swing-api.herokuapp.com";
-        string api_url = baseURL + "/getLobbyFlags?lobbyId=" + lobbyId;
+        string api_url = APIHelper.baseURL + "/getLobbyFlags?lobbyId=" + lobbyId;
         UnityWebRequest request = UnityWebRequest.Get(api_url);
         yield return request.SendWebRequest();
         string json = request.downloadHandler.text;

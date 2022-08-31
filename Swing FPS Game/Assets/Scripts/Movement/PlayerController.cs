@@ -218,8 +218,7 @@ public class PlayerController : MonoBehaviour
 
     IEnumerator CheckHealth()
     {
-        string baseURL = "http://rest-swing-api.herokuapp.com";
-        string api_url = baseURL + "/getHealth?playerId=" + playerId;
+        string api_url = APIHelper.baseURL + "/getHealth?playerId=" + playerId;
         UnityWebRequest request = UnityWebRequest.Get(api_url);
 
         yield return request.SendWebRequest();
@@ -240,8 +239,7 @@ public class PlayerController : MonoBehaviour
 
     IEnumerator CheckPlayerWon()
     {
-        string baseURL = "http://rest-swing-api.herokuapp.com";
-        string api_url = baseURL + "/getPlayerWon?lobbyId=" + lobbyId;
+        string api_url = APIHelper.baseURL + "/getPlayerWon?lobbyId=" + lobbyId;
         UnityWebRequest request = UnityWebRequest.Get(api_url);
 
         yield return request.SendWebRequest();
