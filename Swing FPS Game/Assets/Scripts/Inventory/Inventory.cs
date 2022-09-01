@@ -105,7 +105,7 @@ public class Inventory : MonoBehaviour
 
         if (canAdd)
         {
-            APIHelper.TakeFlag(Constants.playerId, Constants.lobbyId, item.flagNum);
+            //APIHelper.TakeFlag(Constants.playerId, Constants.lobbyId, item.flagNum);
             inventory.Add(flags[item.flagNum - 1]);
             //item.gameObject.GetComponent<Item>().PickedUp(); *don't need this, it's set to inactive in FlagSpawn
             ShowFlag();

@@ -1,7 +1,7 @@
 using System;
 
 [Serializable]
-public struct PlayerData
+public class OtherPlayerData
 {
     public string playerId;
     public float xPos;

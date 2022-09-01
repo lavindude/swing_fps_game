@@ -50,7 +50,7 @@ public class MainMenuManager : MonoBehaviour
     int lIDExist;
 
     public static string pName;
-    public static int pID;
+    public static string pID;
     public static int lID;
 
     // Start is called before the first frame update
@@ -163,17 +163,6 @@ public class MainMenuManager : MonoBehaviour
     {
         Constants.playerId = pID;
         Constants.lobbyId = lID;
-
-        int curId = 0;
-        for (int i = 1; i <= Constants.maxPlayers; i++)
-        {
-            if (i != pID)
-            {
-                Constants.otherPlayerIds[curId] = i;
-                curId++;
-            }
-
-        }
 
         SceneManager.LoadScene("SampleScene");
     }
@@ -297,7 +286,7 @@ public class MainMenuManager : MonoBehaviour
         {
             Debug.Log("Entered");
             pIDExist = 1;
-            pID = int.Parse(id.text);
+            pID = id.text;
         }
     }
 

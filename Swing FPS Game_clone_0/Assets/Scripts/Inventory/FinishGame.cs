@@ -11,7 +11,7 @@ public class FinishGame : MonoBehaviour
     {
         if (player.GetComponent<Inventory>().inventory.Count == flagsNum)
         {
-            APIHelper.SendPlayerWon(Constants.playerId, Constants.lobbyId);
+            //APIHelper.SendPlayerWon(Constants.playerId, Constants.lobbyId);
             player.GetComponent<PlayerController>().wonGame = true;
         }
     }
@@ -21,7 +21,7 @@ public class FinishGame : MonoBehaviour
         //reset player won and flags
         if (player.GetComponent<PlayerController>().wonGame)
         {
-            APIHelper.ResetFlagsAndPlayerWon(Constants.lobbyId);
+            //APIHelper.ResetFlagsAndPlayerWon(Constants.lobbyId);
             player.GetComponent<Inventory>().inventory.Clear();
             player.GetComponent<Inventory>().resetFlagImages();
         }

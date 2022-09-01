@@ -28,7 +28,7 @@ public class EnemyHealth : MonoBehaviour, IDamageable
         {
             if (EnemyObjectData.otherPlayerObjects[i] != null && EnemyObjectData.otherPlayerObjects[i].enemyPrefab == gameObject)
             {
-                APIHelper.DealDamage(EnemyObjectData.otherPlayerObjects[i].enemyId, damage);
+                //APIHelper.DealDamage(EnemyObjectData.otherPlayerObjects[i].enemyId, damage);
                 break;
             }
         }

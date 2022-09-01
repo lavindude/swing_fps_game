@@ -7063,12 +7063,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 1429525915}
+  otherPlayerPrefab: {fileID: 5203439112580307484, guid: a868a73bd9a418f43ae8b73f45a6f914, type: 3}
   playerData:
-    id: 
+    playerId: 
     xPos: 0
     yPos: 0
     zPos: 0
-    timestamp: 0
 --- !u!4 &809387559
 Transform:
   m_ObjectHideFlags: 0

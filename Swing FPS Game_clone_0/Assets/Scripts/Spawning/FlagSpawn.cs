@@ -25,7 +25,7 @@ public class FlagSpawn : MonoBehaviour
 
     void SyncFlags()
     {
-        StartCoroutine(ManageFlags());
+        //StartCoroutine(ManageFlags());
     }
 
     bool Includes(int[] serverFlags, int item)

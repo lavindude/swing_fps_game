@@ -86,7 +86,7 @@ public class PlayerController : MonoBehaviour
     public bool isSliding = false;
 
     //local data for multiplayer
-    private int playerId;
+    private string playerId;
     private int lobbyId;
 
     private bool OnSlope()
@@ -115,7 +115,7 @@ public class PlayerController : MonoBehaviour
         playerId = Constants.playerId;
         lobbyId = Constants.lobbyId;
 
-        APIHelper.SyncLocation(playerId, lobbyId, transform.position.x, transform.position.y, transform.position.z);
+        //APIHelper.SyncLocation(playerId, lobbyId, transform.position.x, transform.position.y, transform.position.z);
     }
 
     private void Update()
@@ -164,8 +164,8 @@ public class PlayerController : MonoBehaviour
 
     void SyncPlayer()
     {
-        StartCoroutine(PlayerMovement());
-        StartCoroutine(CheckHealth());
+        //StartCoroutine(PlayerMovement());
+        //StartCoroutine(CheckHealth());
     }
 
     void ControlDrag()
@@ -212,7 +212,7 @@ public class PlayerController : MonoBehaviour
     }
     IEnumerator PlayerMovement()
     {
-        APIHelper.SyncLocation(playerId, lobbyId, transform.position.x, transform.position.y, transform.position.z);
+        //APIHelper.SyncLocation(playerId, lobbyId, transform.position.x, transform.position.y, transform.position.z);
         yield return null;
     }
 
@@ -231,7 +231,7 @@ public class PlayerController : MonoBehaviour
             gameObject.GetComponent<Inventory>().inventory.Clear();
             gameObject.GetComponent<Inventory>().resetFlagImages();
             transform.position = new Vector3(respawnData.startX, respawnData.startY, respawnData.startZ);
-            APIHelper.SendPlayerDeathReceived(playerId);
+            //APIHelper.SendPlayerDeathReceived(playerId);
         }
 
         yield return null;

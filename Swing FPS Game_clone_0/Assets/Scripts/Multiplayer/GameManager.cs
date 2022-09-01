@@ -1,78 +1,46 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 
 public class GameManager : MonoBehaviour
 {
-    public class EnemyObject
-    {
-        public int enemyId;
-        public GameObject enemyPrefab;
-
-        public EnemyObject(int id, GameObject otherPlayerPrefab)
-        {
-            enemyId = id;
-            enemyPrefab = otherPlayerPrefab;
-        }
-
-        public void setOtherPlayerPrefab(Vector3 otherPosition)
-        {
-            enemyPrefab.transform.position = otherPosition;
-        }
-    }
-
     //local data for multiplayer
     public GameObject otherPlayerPrefab;
+    private Dictionary<string, GameObject> otherPlayers = new Dictionary<string, GameObject>();
     private int[] otherPlayerIds;
 
     // Start is called before the first frame update
     void Start()
     {
-        APIHelper.ResetPlayerData(Constants.playerId, Constants.lobbyId);
-
-        otherPlayerIds = Constants.otherPlayerIds;
-
-        EnemyObjectData.setEnemyArrayLength(otherPlayerIds.Length);
-
-        for (int i = 0; i < otherPlayerIds.Length; i++)
-        {
-            GameObject newEnemy = Instantiate(otherPlayerPrefab, new Vector3(2, 48, 0), otherPlayerPrefab.transform.rotation);
-            EnemyObjectData.fillUpEnemyArray(newEnemy, otherPlayerIds[i], i);
-        }
-
-        InvokeRepeating("SyncOtherPlayers", 0, 0.06f);
+        
     }
 
 // Update is called once per frame
-void Update()
+    void Update()
     {
-        //SyncOtherPlayers();
+        string sendData = "{\"dataType\" : \"getOtherPlayerData\", \"data\" : {\"playerId\" : \"" + Constants.playerId + "\", \"lobbyId\" : " + Constants.lobbyId + "}}";
+        SocketManager.socket.Send(sendData);
+
+        SyncOtherPlayers(SocketManager.otherPlayerDatas);
     }
 
-    void SyncOtherPlayers()
+    void SyncOtherPlayers(OtherPlayerData[] otherPlayerDatas)
     {
-        StartCoroutine(OtherPlayerMovement());
-    }
-
-    IEnumerator OtherPlayerMovement() // not in APIHelper because cannot use IEnumerator
-    {
-        for (int i = 0; i < EnemyObjectData.otherPlayerObjects.Length; i++)
+        for (int i = 0; i < otherPlayerDatas.Length; i++)
         {
-            if (EnemyObjectData.otherPlayerObjects[i] != null)
+            if (otherPlayers.ContainsKey(otherPlayerDatas[i].playerId))
             {
-                int userId = EnemyObjectData.otherPlayerObjects[i].enemyId;
-                string api_url = APIHelper.baseURL + "/getPosition?userId=" + userId;
-                UnityWebRequest request = UnityWebRequest.Get(api_url);
+                Vector3 updatedPos = new Vector3(otherPlayerDatas[i].xPos, otherPlayerDatas[i].yPos, otherPlayerDatas[i].zPos);
+                otherPlayers[otherPlayerDatas[i].playerId].transform.position = updatedPos;
+            }
 
-                yield return request.SendWebRequest();
-
-                string json = request.downloadHandler.text;
-                PlayerPosition playerPosition = JsonUtility.FromJson<PlayerPosition>(json);
-                EnemyObjectData.otherPlayerObjects[i].setOtherPlayerPrefab(new Vector3(playerPosition.positionX,
-                                                                            playerPosition.positionY, playerPosition.positionZ));
+            else
+            {
+                GameObject enemy = Instantiate(otherPlayerPrefab, new Vector3(otherPlayerDatas[i].xPos,
+                                                otherPlayerDatas[i].yPos, otherPlayerDatas[i].zPos), otherPlayerPrefab.transform.rotation);
+                otherPlayers.Add(otherPlayerDatas[i].playerId, enemy);
             }
         }
-
-        yield return null;
     }
 }
