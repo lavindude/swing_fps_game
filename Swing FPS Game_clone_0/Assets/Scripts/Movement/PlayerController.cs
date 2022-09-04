@@ -138,7 +138,7 @@ public class PlayerController : MonoBehaviour
         Slide();
         Crouch();
         SyncPlayer();
-        PlayerWon();
+        //PlayerWon();
 
         if (isCrouching || isSliding)
         {
