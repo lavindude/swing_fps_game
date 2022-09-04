@@ -46,7 +46,6 @@ public class SocketManager : MonoBehaviour
                     string playerInitData = "{\"dataType\" : \"initializePlayer\", \"data\" : {\"playerId\" : " +
                                         "\"" + playerData.playerId + "\", \"lobbyId\" : \"" + Constants.lobbyId + "\"}}";
                     socket.Send(playerInitData);
-                    Debug.Log(Constants.playerId);
                     return;
                 }
 

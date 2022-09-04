@@ -21,8 +21,6 @@ public class MainMenuManager : MonoBehaviour
     public Button toMultiplayerButton;
     public TMP_InputField playerName;
     public TextMeshProUGUI playerNameText;
-    public TMP_InputField playerID;
-    public TextMeshProUGUI playerIDText;
     public TMP_InputField lobbyID;
     public TextMeshProUGUI lobbyIDText;
 
@@ -40,17 +38,13 @@ public class MainMenuManager : MonoBehaviour
     Animator toMultiplayerAnim;
     Animator playerNameAnim;
     Animator playerNameTextAnim;
-    Animator playerIDAnim;
-    Animator playerIDTextAnim;
     Animator lobbyIDAnim;
     Animator lobbyIDTextAnim;
 
     int nameExist;
-    int pIDExist;
     int lIDExist;
 
     public static string pName;
-    public static string pID;
     public static int lID;
 
     // Start is called before the first frame update
@@ -68,13 +62,10 @@ public class MainMenuManager : MonoBehaviour
         toMultiplayerAnim = toMultiplayerButton.GetComponent<Animator>();
         playerNameAnim = playerName.GetComponent<Animator>();
         playerNameTextAnim = playerNameText.GetComponent<Animator>();
-        playerIDAnim = playerID.GetComponent<Animator>();
-        playerIDTextAnim = playerIDText.GetComponent<Animator>();
         lobbyIDAnim = lobbyID.GetComponent<Animator>();
         lobbyIDTextAnim = lobbyIDText.GetComponent<Animator>();
 
         nameExist = 0;
-        pIDExist = 0;
         lIDExist = 0;
 
         menuState = 0;
@@ -150,8 +141,6 @@ public class MainMenuManager : MonoBehaviour
         {
             playerNameAnim.SetBool("Active", false);
             playerNameTextAnim.SetBool("Active", false);
-            playerIDAnim.SetBool("Active", false);
-            playerIDTextAnim.SetBool("Active", false);
             lobbyIDAnim.SetBool("Active", false);
             lobbyIDTextAnim.SetBool("Active", false);
 
@@ -161,7 +150,6 @@ public class MainMenuManager : MonoBehaviour
 
     void ToMultiplayer()
     {
-        Constants.playerId = pID;
         Constants.lobbyId = lID;
 
         SceneManager.LoadScene("SampleScene");
@@ -240,8 +228,6 @@ public class MainMenuManager : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
         playerNameAnim.SetBool("Active", true);
         playerNameTextAnim.SetBool("Active", true);
-        playerIDAnim.SetBool("Active", true);
-        playerIDTextAnim.SetBool("Active", true);
         lobbyIDAnim.SetBool("Active", true);
         lobbyIDTextAnim.SetBool("Active", true);
     }
@@ -274,22 +260,6 @@ public class MainMenuManager : MonoBehaviour
         }
     }
 
-    public void ReadPlayerID(TMP_InputField id)
-    {
-        Debug.Log(id.text);
-        if(id.text.Length == 0)
-        {
-            Debug.Log("Deleted");
-            pIDExist = 2;
-        }
-        else if(int.Parse(id.text) > 0)
-        {
-            Debug.Log("Entered");
-            pIDExist = 1;
-            pID = id.text;
-        }
-    }
-
     public void ReadLobbyID(TMP_InputField id)
     {
         Debug.Log(id.text);
@@ -310,12 +280,12 @@ public class MainMenuManager : MonoBehaviour
     {
         if(menuState == 4 )
         {
-            if(nameExist == 1 && pIDExist == 1 && lIDExist == 1)
+            if(nameExist == 1 && lIDExist == 1)
             {
                 EraseBack();
                 Debug.Log("HELLO");
             }
-            else if(nameExist == 2 || pIDExist == 2 || lIDExist == 2)
+            else if(nameExist == 2 || lIDExist == 2)
             {
                 EraseStart();
                 Debug.Log("BYE");
