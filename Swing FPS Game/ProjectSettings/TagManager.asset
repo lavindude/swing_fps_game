@@ -3,7 +3,12 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - NoParticle
+  - FxTemporaire
+  - Footsteps/Metalic
+  - Footsteps/Asphalt
+  - Footsteps/Grassy
   layers:
   - Default
   - TransparentFX
@@ -11,15 +16,15 @@ TagManager:
   - 
   - Water
   - UI
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Ground
+  - Weapons
+  - Gun
+  - Items
+  - Player
+  - Enemy
+  - Border
+  - Map UI
+  - Flag
   - 
   - 
   - 
