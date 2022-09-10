@@ -2,13 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
+using Newtonsoft.Json.Linq;
 
 public class GameManager : MonoBehaviour
 {
-    //local data for multiplayer
     public GameObject otherPlayerPrefab;
-    private Dictionary<string, GameObject> otherPlayers = new Dictionary<string, GameObject>();
-    private int[] otherPlayerIds;
+    public static Dictionary<string, GameObject> otherPlayers = new Dictionary<string, GameObject>();
 
     // Start is called before the first frame update
     void Start()
@@ -16,31 +15,51 @@ public class GameManager : MonoBehaviour
         
     }
 
-// Update is called once per frame
+    // Update is called once per frame
     void Update()
     {
-        string sendData = "{\"dataType\" : \"getOtherPlayerData\", \"data\" : {\"playerId\" : \"" + Constants.playerId + "\", \"lobbyId\" : " + Constants.lobbyId + "}}";
-        SocketManager.socket.Send(sendData);
-
-        SyncOtherPlayers(SocketManager.otherPlayerDatas);
-    }
-
-    void SyncOtherPlayers(OtherPlayerData[] otherPlayerDatas)
-    {
-        for (int i = 0; i < otherPlayerDatas.Length; i++)
+        // this should only run at the beginning of the game
+        if (SocketManager.initEnemiesRetrieved)
         {
-            if (otherPlayers.ContainsKey(otherPlayerDatas[i].playerId))
+            //check otherPlayers dictionary in socket manager
+            foreach (KeyValuePair<string, OtherPlayerData> enemy in SocketManager.otherPlayers)
             {
-                Vector3 updatedPos = new Vector3(otherPlayerDatas[i].xPos, otherPlayerDatas[i].yPos, otherPlayerDatas[i].zPos);
-                otherPlayers[otherPlayerDatas[i].playerId].transform.position = updatedPos;
+                Vector3 newPos = new Vector3(enemy.Value.xPos, enemy.Value.yPos, enemy.Value.zPos);
+
+                if (otherPlayers.ContainsKey(enemy.Key)) // run in case below function happens faster
+                {
+                    otherPlayers[enemy.Key].transform.position = newPos;
+                }
+
+                else
+                {
+                    GameObject enemyObject = Instantiate(otherPlayerPrefab, newPos, otherPlayerPrefab.transform.rotation);
+                    otherPlayers.Add(enemy.Key, enemyObject);
+                }
+            }
+
+            SocketManager.initEnemiesRetrieved = false;
+        }
+
+        if (!SocketManager.syncedOtherPlayer)
+        {
+            string playerId = SocketManager.playerToSync;
+            Vector3 newPos = new Vector3(SocketManager.otherPlayers[playerId].xPos,
+                                            SocketManager.otherPlayers[playerId].yPos,
+                                            SocketManager.otherPlayers[playerId].zPos);
+            // update enemy player
+            if (otherPlayers.ContainsKey(playerId))
+            {
+                otherPlayers[SocketManager.playerToSync].transform.position = newPos;
             }
 
             else
             {
-                GameObject enemy = Instantiate(otherPlayerPrefab, new Vector3(otherPlayerDatas[i].xPos,
-                                                otherPlayerDatas[i].yPos, otherPlayerDatas[i].zPos), otherPlayerPrefab.transform.rotation);
-                otherPlayers.Add(otherPlayerDatas[i].playerId, enemy);
+                GameObject enemy = Instantiate(otherPlayerPrefab, newPos, otherPlayerPrefab.transform.rotation);
+                otherPlayers.Add(playerId, enemy);
             }
+
+            SocketManager.syncedOtherPlayer = true;
         }
     }
 }

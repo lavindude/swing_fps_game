@@ -8,11 +8,13 @@ using Newtonsoft.Json.Linq;
 public class SocketManager : MonoBehaviour
 {
     public static WebSocket socket;
-    public static OtherPlayerData[] otherPlayerDatas;
+
+    public static Dictionary<string, OtherPlayerData> otherPlayers = new Dictionary<string, OtherPlayerData>();
+    public static bool syncedOtherPlayer = true; // this is for GameManager.cs to reference
+    public static string playerToSync;
+    public static bool initEnemiesRetrieved = false;
 
     public GameObject player;
-
-    public GameObject otherPlayerPrefab;
 
     public PlayerData playerData;
     private Vector3 prevPosition;
@@ -46,12 +48,43 @@ public class SocketManager : MonoBehaviour
                     string playerInitData = "{\"dataType\" : \"initializePlayer\", \"data\" : {\"playerId\" : " +
                                         "\"" + playerData.playerId + "\", \"lobbyId\" : \"" + Constants.lobbyId + "\"}}";
                     socket.Send(playerInitData);
+
+                    // get data of all the other players in the lobby prior to joining
+                    string query = "{\"dataType\" : \"getLobbyData\", \"data\" : {\"playerId\" : \"" + Constants.playerId + 
+                                    "\", \"lobbyId\" : \"" + Constants.lobbyId + "\"}}";
+                    socket.Send(query);
                     return;
                 }
 
-                if (jsonObj["otherPlayerData"] != null)
+                if (jsonObj["otherPlayerPosition"] != null)
                 {
-                    otherPlayerDatas = jsonObj["otherPlayerData"].ToObject<OtherPlayerData[]>();
+                    string playerId = jsonObj["otherPlayerPosition"]["id"].ToString();
+                    OtherPlayerData otherPlayer = jsonObj["otherPlayerPosition"]["data"].ToObject<OtherPlayerData>();
+                    if (otherPlayers.ContainsKey(playerId)) {
+                        otherPlayers[playerId].xPos = otherPlayer.xPos;
+                        otherPlayers[playerId].yPos = otherPlayer.yPos;
+                        otherPlayers[playerId].zPos = otherPlayer.zPos;
+                        otherPlayers[playerId].health = otherPlayer.health;
+                    } 
+                    
+                    else
+                    {
+                        otherPlayers.Add(playerId, otherPlayer);
+                    }
+
+                    playerToSync = playerId;
+                    syncedOtherPlayer = false;
+                }
+
+                if (jsonObj["enemiesInit"] != null)
+                {
+                    OtherPlayerData[] enemyPlayers = jsonObj["enemiesInit"].ToObject<OtherPlayerData[]>();
+                    foreach (OtherPlayerData enemy in enemyPlayers)
+                    {
+                        otherPlayers.Add(enemy.id, enemy);
+                    }
+
+                    initEnemiesRetrieved = true;
                 }
             }
 
@@ -86,7 +119,8 @@ public class SocketManager : MonoBehaviour
             playerData.zPos = player.transform.position.z;
 
             string playerDataJSON = JsonUtility.ToJson(playerData);
-            string playerDataSpecified = "{\"dataType\" : \"playerPositionData\", \"data\" : " + playerDataJSON + "}";
+            string playerDataSpecified = "{\"dataType\" : \"playerPositionData\", \"data\" : {\"playerInfo\" : " + playerDataJSON + ", " +
+                                            "\"lobbyId\" : \"" + Constants.lobbyId + "\"}}";
             socket.Send(playerDataSpecified);
         }
 
