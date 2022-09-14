@@ -62,4 +62,22 @@ public class GameManager : MonoBehaviour
             SocketManager.syncedOtherPlayer = true;
         }
     }
+
+    public void UpdateOtherPlayer(string playerId)
+    {
+        Vector3 newPos = new Vector3(SocketManager.otherPlayers[playerId].xPos,
+                                        SocketManager.otherPlayers[playerId].yPos,
+                                        SocketManager.otherPlayers[playerId].zPos);
+        // update enemy player
+        if (otherPlayers.ContainsKey(playerId))
+        {
+            otherPlayers[SocketManager.playerToSync].transform.position = newPos;
+        }
+
+        else
+        {
+            GameObject enemy = Instantiate(otherPlayerPrefab, newPos, otherPlayerPrefab.transform.rotation);
+            otherPlayers.Add(playerId, enemy);
+        }
+    }
 }
