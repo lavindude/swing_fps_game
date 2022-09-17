@@ -15,15 +15,12 @@ public class SocketManager : MonoBehaviour
     public static bool initEnemiesRetrieved = false;
 
     public GameObject player;
-    public GameManager gameManager;
 
     public PlayerData playerData;
     private Vector3 prevPosition;
     // Start is called before the first frame update
     void Start()
     {
-        gameManager = gameObject.GetComponent<GameManager>();
-
         prevPosition = player.transform.position;
 
         //socket = new WebSocket("ws://localhost:4000");
@@ -73,7 +70,7 @@ public class SocketManager : MonoBehaviour
                     /*playerToSync = playerId;
                     syncedOtherPlayer = false;*/
 
-                    gameManager.UpdateOtherPlayer(playerId);
+                    // add event to an event queue
                 }
 
                 //initialize enemies
