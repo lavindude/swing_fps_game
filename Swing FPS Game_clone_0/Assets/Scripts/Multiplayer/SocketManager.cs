@@ -14,6 +14,8 @@ public class SocketManager : MonoBehaviour
     public static string playerToSync;
     public static bool initEnemiesRetrieved = false;
 
+    public static Queue<OtherPlayerData> playersToUpdate = new Queue<OtherPlayerData>();
+
     public GameObject player;
 
     public PlayerData playerData;
@@ -23,8 +25,8 @@ public class SocketManager : MonoBehaviour
     {
         prevPosition = player.transform.position;
 
-        //socket = new WebSocket("ws://localhost:4000");
-        socket = new WebSocket("ws://swing-backend-v2.herokuapp.com/");
+        socket = new WebSocket("ws://localhost:4000");
+        //socket = new WebSocket("ws://swing-backend-v2.herokuapp.com/");
         socket.Connect();
 
         //WebSocket onMessage function
@@ -34,8 +36,6 @@ public class SocketManager : MonoBehaviour
             //If received data is type text...
             if (e.IsText)
             {
-                //Debug.Log("IsText");
-                //Debug.Log(e.Data);
                 JObject jsonObj = JObject.Parse(e.Data);
 
                 //Get Initial Data server ID data (From intial serverhandshake)
@@ -45,37 +45,30 @@ public class SocketManager : MonoBehaviour
                     PlayerData tempPlayerData = JsonUtility.FromJson<PlayerData>(e.Data);
                     playerData = tempPlayerData;
                     Constants.playerId = playerData.playerId;
-                    string playerInitData = "{\"dataType\" : \"initializePlayer\", \"data\" : {\"playerId\" : " +
-                                        "\"" + playerData.playerId + "\", \"lobbyId\" : \"" + Constants.lobbyId + "\"}}";
-                    socket.Send(playerInitData);
+                    socket.Send(SocketCalls.PlayerInitData(playerData.playerId));
 
                     // get data of all the other players in the lobby prior to joining
-                    string query = "{\"dataType\" : \"getLobbyData\", \"data\" : {\"playerId\" : \"" + Constants.playerId + 
-                                    "\", \"lobbyId\" : \"" + Constants.lobbyId + "\"}}";
-                    socket.Send(query);
+                    socket.Send(SocketCalls.GetInitLobbyData());
                     return;
                 }
 
+                //if retrieve new data about another player
                 if (jsonObj["otherPlayerPosition"] != null)
                 {
                     string playerId = jsonObj["otherPlayerPosition"]["id"].ToString();
                     OtherPlayerData otherPlayer = jsonObj["otherPlayerPosition"]["data"].ToObject<OtherPlayerData>();
-                    if (otherPlayers.ContainsKey(playerId)) {
-                        otherPlayers[playerId].xPos = otherPlayer.xPos;
-                        otherPlayers[playerId].yPos = otherPlayer.yPos;
-                        otherPlayers[playerId].zPos = otherPlayer.zPos;
-                        otherPlayers[playerId].health = otherPlayer.health;
-                    } 
-                    
-                    else
-                    {
-                        otherPlayers.Add(playerId, otherPlayer);
-                    }
+                    otherPlayer.id = playerId;
 
-                    playerToSync = playerId;
-                    syncedOtherPlayer = false;
+                    // add player's new data to queue
+                    playersToUpdate.Enqueue(otherPlayer);
+
+                    Debug.Log("Updated x pos: " + otherPlayer.xPos);
+                    Debug.Log("Updated y pos: " + otherPlayer.yPos);
+                    Debug.Log("Updated z pos: " + otherPlayer.zPos);
+                    Debug.Log("-------------------");
                 }
 
+                //initialize enemies
                 if (jsonObj["enemiesInit"] != null)
                 {
                     OtherPlayerData[] enemyPlayers = jsonObj["enemiesInit"].ToObject<OtherPlayerData[]>();
@@ -119,15 +112,7 @@ public class SocketManager : MonoBehaviour
             playerData.zPos = player.transform.position.z;
 
             string playerDataJSON = JsonUtility.ToJson(playerData);
-            string playerDataSpecified = "{\"dataType\" : \"playerPositionData\", \"data\" : {\"playerInfo\" : " + playerDataJSON + ", " +
-                                            "\"lobbyId\" : \"" + Constants.lobbyId + "\"}}";
-            socket.Send(playerDataSpecified);
-        }
-
-        if (Input.GetKeyDown(KeyCode.M))
-        {
-            string messageJSON = "{\"message\": \"Some Message From Client\"}";
-            socket.Send(messageJSON);
+            socket.Send(SocketCalls.SendPositionData(playerDataJSON));
         }
     }
 

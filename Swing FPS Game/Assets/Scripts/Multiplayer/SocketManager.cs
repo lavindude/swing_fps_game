@@ -14,6 +14,8 @@ public class SocketManager : MonoBehaviour
     public static string playerToSync;
     public static bool initEnemiesRetrieved = false;
 
+    public static Queue<OtherPlayerData> playersToUpdate = new Queue<OtherPlayerData>();
+
     public GameObject player;
 
     public PlayerData playerData;
@@ -23,8 +25,8 @@ public class SocketManager : MonoBehaviour
     {
         prevPosition = player.transform.position;
 
-        //socket = new WebSocket("ws://localhost:4000");
-        socket = new WebSocket("ws://swing-backend-v2.herokuapp.com/");
+        socket = new WebSocket("ws://localhost:4000");
+        //socket = new WebSocket("ws://swing-backend-v2.herokuapp.com/");
         socket.Connect();
 
         //WebSocket onMessage function
@@ -55,22 +57,15 @@ public class SocketManager : MonoBehaviour
                 {
                     string playerId = jsonObj["otherPlayerPosition"]["id"].ToString();
                     OtherPlayerData otherPlayer = jsonObj["otherPlayerPosition"]["data"].ToObject<OtherPlayerData>();
-                    if (otherPlayers.ContainsKey(playerId)) {
-                        otherPlayers[playerId].xPos = otherPlayer.xPos;
-                        otherPlayers[playerId].yPos = otherPlayer.yPos;
-                        otherPlayers[playerId].zPos = otherPlayer.zPos;
-                        otherPlayers[playerId].health = otherPlayer.health;
-                    } 
-                    
-                    else
-                    {
-                        otherPlayers.Add(playerId, otherPlayer);
-                    }
+                    otherPlayer.id = playerId;
 
-                    /*playerToSync = playerId;
-                    syncedOtherPlayer = false;*/
+                    // add player's new data to queue
+                    playersToUpdate.Enqueue(otherPlayer);
 
-                    // add event to an event queue
+                    Debug.Log("Updated x pos: " + otherPlayer.xPos);
+                    Debug.Log("Updated y pos: " + otherPlayer.yPos);
+                    Debug.Log("Updated z pos: " + otherPlayer.zPos);
+                    Debug.Log("-------------------");
                 }
 
                 //initialize enemies

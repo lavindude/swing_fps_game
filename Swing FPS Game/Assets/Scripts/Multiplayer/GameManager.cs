@@ -41,16 +41,15 @@ public class GameManager : MonoBehaviour
             SocketManager.initEnemiesRetrieved = false;
         }
 
-        if (!SocketManager.syncedOtherPlayer)
+        while (SocketManager.playersToUpdate.Count > 0)
         {
-            string playerId = SocketManager.playerToSync;
-            Vector3 newPos = new Vector3(SocketManager.otherPlayers[playerId].xPos,
-                                            SocketManager.otherPlayers[playerId].yPos,
-                                            SocketManager.otherPlayers[playerId].zPos);
+            OtherPlayerData playerToSync = SocketManager.playersToUpdate.Dequeue();
+            string playerId = playerToSync.id;
+            Vector3 newPos = new Vector3(playerToSync.xPos, playerToSync.yPos, playerToSync.zPos);
             // update enemy player
             if (otherPlayers.ContainsKey(playerId))
             {
-                otherPlayers[SocketManager.playerToSync].transform.position = newPos;
+                otherPlayers[playerId].transform.position = newPos;
             }
 
             else
@@ -58,8 +57,6 @@ public class GameManager : MonoBehaviour
                 GameObject enemy = Instantiate(otherPlayerPrefab, newPos, otherPlayerPrefab.transform.rotation);
                 otherPlayers.Add(playerId, enemy);
             }
-
-            SocketManager.syncedOtherPlayer = true;
         }
     }
 }
