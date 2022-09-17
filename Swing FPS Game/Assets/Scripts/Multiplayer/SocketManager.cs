@@ -25,8 +25,8 @@ public class SocketManager : MonoBehaviour
     {
         prevPosition = player.transform.position;
 
-        socket = new WebSocket("ws://localhost:4000");
-        //socket = new WebSocket("ws://swing-backend-v2.herokuapp.com/");
+        //socket = new WebSocket("ws://localhost:4000");
+        socket = new WebSocket("ws://swing-backend-v2.herokuapp.com/");
         socket.Connect();
 
         //WebSocket onMessage function
