@@ -61,11 +61,6 @@ public class SocketManager : MonoBehaviour
 
                     // add player's new data to queue
                     playersToUpdate.Enqueue(otherPlayer);
-
-                    Debug.Log("Updated x pos: " + otherPlayer.xPos);
-                    Debug.Log("Updated y pos: " + otherPlayer.yPos);
-                    Debug.Log("Updated z pos: " + otherPlayer.zPos);
-                    Debug.Log("-------------------");
                 }
 
                 //initialize enemies
