@@ -25,8 +25,9 @@ public class SocketManager : MonoBehaviour
     {
         prevPosition = player.transform.position;
 
-        //socket = new WebSocket("ws://localhost:4000");
-        socket = new WebSocket("ws://swing-backend-v2.herokuapp.com/");
+        //socket = new WebSocket("ws://localhost:4000"); // local environment
+        //socket = new WebSocket("ws://swing-backend-v2.herokuapp.com/"); // dev environment (temporary, will go away, slower than prod server
+        socket = new WebSocket("ws://swingfpsgameserver.azurewebsites.net/"); // production environment
         socket.Connect();
 
         //WebSocket onMessage function
