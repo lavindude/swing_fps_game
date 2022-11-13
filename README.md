@@ -2,6 +2,8 @@
 
 This is a game that combines a spider-man swinging game and an fps.
 
+![image](https://user-images.githubusercontent.com/60680607/201507020-effcf4b3-713d-4ab1-b787-ab7847f7c258.png)
+
 Download our game here: https://lavindude.itch.io/swing-fps-game <br>
 
 Multiplayer works! Feel free to tell your friends to download so you can play together. 
@@ -20,3 +22,5 @@ Click <a href="https://github.com/lavindude/renovated_swing_backend">here</a> to
 
 Development notes:
 Go to Assets/Scripts/Multiplayer/APIHelper.cs and adjust baseURL to either local or production according to what you're trying to fix or build.
+
+![image](https://user-images.githubusercontent.com/60680607/201507020-effcf4b3-713d-4ab1-b787-ab7847f7c258.png)
