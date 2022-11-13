@@ -6,8 +6,6 @@ This is a game that combines a spider-man swinging game and an fps.
 
 Download our game here: https://lavindude.itch.io/swing-fps-game <br>
 
-Multiplayer works! Feel free to tell your friends to download so you can play together. 
-
 Download instructions:
 1. Click on the itch.io link above
 2. Download the zip
