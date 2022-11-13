@@ -1,4 +1,7 @@
-# swing_fps_game
+# Swing FPS Game
+
+Download our game here: https://lavindude.itch.io/swing-fps-game
+-Multiplayer is not enabled right now because the servers are off.
 
 This is a game that combines a spider-man swinging game and an fps. Most of the project contains unity related files but if you want to view any code, go to Assets/Scripts and there will be C# scripts in that directory and also any subdirectories.
 
